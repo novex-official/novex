@@ -1,0 +1,3423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVEX — New Generation For Investing</title>
+  <meta name="description" content="NOVEX is a modern investment ecosystem powered by AI-driven operational intelligence and structured investment cycles." />
+  <link rel="icon" type="image/png" href="Novex_logo.png" />
+  <link rel="apple-touch-icon" href="Novex_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0D0A1A;
+      color: #E8E4F0;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg-primary:    #0D0A1A;
+      --bg-secondary:  #120F22;
+      --bg-card:       #1A1530;
+      --bg-glass:      rgba(26, 21, 48, 0.6);
+      --gold:          #C9A84C;
+      --gold-light:    #E8C96A;
+      --gold-dim:      rgba(201, 168, 76, 0.15);
+      --cyan:          #00E5FF;
+      --cyan-dim:      rgba(0, 229, 255, 0.1);
+      --emerald:       #10B981;
+      --emerald-dim:   rgba(16, 185, 129, 0.12);
+      --purple-light:  #6B46C1;
+      --purple-mid:    #4C1D95;
+      --text-primary:  #F0ECF8;
+      --text-secondary:#A09BBF;
+      --text-muted:    #6B6587;
+      --border:        rgba(201, 168, 76, 0.15);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --shadow-gold:   0 0 40px rgba(201, 168, 76, 0.12);
+      --shadow-glow:   0 8px 32px rgba(0, 0, 0, 0.5);
+      --radius-sm:     8px;
+      --radius-md:     16px;
+      --radius-lg:     24px;
+      --radius-xl:     32px;
+      --transition:    0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+    /* ===== SELECTION ===== */
+    ::selection { background: rgba(201, 168, 76, 0.25); color: var(--gold-light); }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.15; }
+    h1 { font-size: clamp(2.8rem, 6vw, 5rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -0.015em; }
+    h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+    p  { color: var(--text-secondary); font-weight: 400; }
+
+    /* ===== GRADIENTS & ACCENTS ===== */
+    .text-gold  { color: var(--gold); }
+    .text-cyan  { color: var(--cyan); }
+    .text-gradient {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #A07832 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #fff 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== SECTION BASE ===== */
+    section { position: relative; overflow: hidden; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .section-pad { padding: 96px 0; }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-dim);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .section-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--gold);
+    }
+    .section-header { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+    .section-header p { font-size: 1.1rem; margin-top: 16px; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 36px;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.02em;
+    }
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.08);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, #A07832 100%);
+      color: #0D0A1A;
+      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.5);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ===== CARD BASE ===== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+    }
+    .card:hover {
+      border-color: var(--border);
+      box-shadow: var(--shadow-gold);
+      transform: translateY(-4px);
+    }
+
+    /* ===== GRID UTILITIES ===== */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      width: 64px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 20px auto;
+      border-radius: 2px;
+    }
+
+    /* ===== NOISE TEXTURE OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.4;
+    }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 0;
+    }
+    nav.scrolled {
+      background: rgba(13, 10, 26, 0.92);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border-subtle);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 48px; height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo-icon img {
+      width: 48px; height: 48px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 10px rgba(201, 168, 76, 0.45));
+      transition: filter 0.35s ease;
+    }
+    .nav-logo:hover .nav-logo-icon img {
+      filter: drop-shadow(0 2px 18px rgba(201, 168, 76, 0.7));
+    }
+    .nav-logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--text-primary);
+      letter-spacing: 0.05em;
+    }
+    .nav-logo-text span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links a {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .nav-links a:hover { color: var(--text-primary); background: var(--border-subtle); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .nav-mobile-toggle span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ===========================
+       HERO
+    =========================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse 120% 80% at 50% 0%, rgba(107, 70, 193, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 80% 50%, rgba(0, 229, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+        var(--bg-primary);
+      padding-top: 80px;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201, 168, 76, 0.08);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--gold);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+    .hero-headline { margin-bottom: 24px; }
+    .hero-headline em {
+      font-style: normal;
+      display: block;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      max-width: 500px;
+      margin-bottom: 40px;
+      color: var(--text-secondary);
+    }
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-trust-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 44px;
+      padding: 14px 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      gap: 0;
+    }
+    .htr-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    .htr-check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--emerald-dim);
+      border: 1px solid rgba(16,185,129,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem;
+      color: var(--emerald);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .htr-sep {
+      width: 1px; height: 18px;
+      background: var(--border-subtle);
+    }
+
+    /* ===== HERO VISUAL ===== */
+    .hero-visual {
+      position: relative;
+      height: 540px;
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+    }
+    .hero-orb-1 {
+      width: 380px; height: 380px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(107, 70, 193, 0.22) 0%, rgba(76, 29, 149, 0.1) 50%, transparent 70%);
+      animation: orb-float 8s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      width: 240px; height: 240px;
+      top: 10%; right: 5%;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, transparent 70%);
+      animation: orb-float 6s ease-in-out infinite reverse;
+    }
+    .hero-orb-3 {
+      width: 180px; height: 180px;
+      bottom: 10%; left: 5%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+      animation: orb-float 10s ease-in-out infinite;
+    }
+    @keyframes orb-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(12px, -18px) scale(1.03); }
+      66% { transform: translate(-8px, 10px) scale(0.97); }
+    }
+
+    /* Network SVG canvas */
+    .hero-network {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    /* Dashboard card */
+    .hero-dashboard {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      background: rgba(26, 21, 48, 0.9);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 40px rgba(201, 168, 76, 0.08);
+      animation: card-float 7s ease-in-out infinite;
+    }
+    @keyframes card-float {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-12px); }
+    }
+    .dash-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .dash-header-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .dash-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--emerald);
+    }
+    .dash-status-dot {
+      width: 6px; height: 6px;
+      background: var(--emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--emerald);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .dash-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .dash-value span { color: var(--gold); }
+    .dash-change {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--emerald);
+      margin-bottom: 20px;
+    }
+    .dash-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 60px;
+      margin-bottom: 20px;
+    }
+    .dash-bar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(201, 168, 76, 0.3) 100%);
+      animation: bar-grow 0.8s ease-out forwards;
+    }
+    @keyframes bar-grow {
+      from { height: 0 !important; }
+    }
+    .dash-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .dash-metric {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .dash-metric-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .dash-metric-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .dash-metric-value.cyan { color: var(--cyan); }
+    .dash-metric-value.emerald { color: var(--emerald); }
+
+    /* Floating badges around card */
+    .hero-float-badge {
+      position: absolute;
+      background: rgba(26, 21, 48, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-glow);
+      white-space: nowrap;
+    }
+    .hfb-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .hfb-icon.gold { background: var(--gold-dim); }
+    .hfb-icon.cyan { background: var(--cyan-dim); }
+    .hfb-icon.emerald { background: var(--emerald-dim); }
+    .hfb-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .hfb-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .hfb-1 { top: 8%; right: 0; animation: badge-float 6s ease-in-out infinite; }
+    .hfb-2 { bottom: 20%; left: -10px; animation: badge-float 8s ease-in-out infinite reverse; }
+    .hfb-3 { top: 35%; left: -5%; animation: badge-float 7s ease-in-out infinite 1s; }
+    @keyframes badge-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ===========================
+       TRUST INDICATORS
+    =========================== */
+    #trust {
+      padding: 80px 0;
+      background:
+        linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .trust-card {
+      background: var(--bg-card);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: var(--transition);
+      position: relative;
+    }
+    .trust-card:hover {
+      background: rgba(26, 21, 48, 0.95);
+    }
+    .trust-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .trust-card:hover::before { opacity: 1; }
+    .trust-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .trust-icon.gold { background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.2); }
+    .trust-icon.cyan { background: var(--cyan-dim); border: 1px solid rgba(0,229,255,0.15); }
+    .trust-icon.emerald { background: var(--emerald-dim); border: 1px solid rgba(16,185,129,0.15); }
+    .trust-icon.purple { background: rgba(107,70,193,0.12); border: 1px solid rgba(107,70,193,0.2); }
+    .trust-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .trust-desc { font-size: 0.85rem; line-height: 1.6; }
+
+    /* ===========================
+       HOW IT WORKS
+    =========================== */
+    #how-it-works {
+      background: var(--bg-secondary);
+    }
+    .steps-container {
+      position: relative;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 16px;
+    }
+    .step-number-wrap {
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .step-number {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+      transition: var(--transition);
+    }
+    .step-item:hover .step-number {
+      border-color: var(--gold);
+      box-shadow: 0 0 24px rgba(201, 168, 76, 0.3);
+      background: var(--gold-dim);
+    }
+    .step-number-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px dashed rgba(201, 168, 76, 0.2);
+      animation: spin-slow 20s linear infinite;
+    }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    .step-icon-badge {
+      position: absolute;
+      bottom: -4px; right: -4px;
+      width: 28px; height: 28px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      z-index: 2;
+    }
+    .step-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .step-desc { font-size: 0.85rem; }
+
+    /* ===========================
+       WHY NOVEX
+    =========================== */
+    #why-novex { background: var(--bg-primary); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      padding: 32px;
+    }
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    .feature-card:hover .feature-icon { transform: scale(1.1) rotate(-5deg); }
+    .feature-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .feature-card p { font-size: 0.875rem; }
+    .feature-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-dim);
+      border-radius: 6px;
+      padding: 3px 10px;
+      margin-top: 16px;
+    }
+
+    /* ===========================
+       AI ENGINE
+    =========================== */
+    #ai-engine {
+      background:
+        radial-gradient(ellipse 100% 80% at 50% 0%, rgba(0, 229, 255, 0.05) 0%, transparent 60%),
+        var(--bg-secondary);
+    }
+    .ai-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .ai-content { }
+    .ai-content h2 { margin-bottom: 20px; }
+    .ai-content p { font-size: 1.05rem; margin-bottom: 32px; }
+    .ai-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ai-pillar {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .ai-pillar:hover {
+      border-color: rgba(0, 229, 255, 0.2);
+      background: rgba(26, 21, 48, 0.9);
+    }
+    .ai-pillar-icon {
+      width: 40px; height: 40px;
+      min-width: 40px;
+      border-radius: 10px;
+      background: var(--cyan-dim);
+      border: 1px solid rgba(0,229,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .ai-pillar-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .ai-pillar-desc { font-size: 0.82rem; }
+
+    /* AI Visualization */
+    .ai-visual {
+      position: relative;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ai-core {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,255,0.25) 0%, rgba(0,229,255,0.05) 50%, transparent 70%);
+      border: 2px solid rgba(0,229,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 40px rgba(0,229,255,0.15), inset 0 0 40px rgba(0,229,255,0.05);
+    }
+    .ai-core-inner {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,255,0.4) 0%, rgba(0,229,255,0.1) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      animation: ai-pulse 3s ease-in-out infinite;
+    }
+    @keyframes ai-pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,229,255,0.3); }
+      50% { transform: scale(1.08); box-shadow: 0 0 30px 10px rgba(0,229,255,0.1); }
+    }
+    .ai-ring {
+      position: absolute;
+      border-radius: 50%;
+      border-style: solid;
+      border-color: rgba(0,229,255,0.12);
+    }
+    .ai-ring-1 { width: 220px; height: 220px; border-width: 1px; animation: spin-slow 15s linear infinite; }
+    .ai-ring-2 { width: 320px; height: 320px; border-width: 1px; border-style: dashed; animation: spin-slow 25s linear infinite reverse; }
+    .ai-ring-3 { width: 420px; height: 420px; border-width: 1px; border-color: rgba(201,168,76,0.08); animation: spin-slow 35s linear infinite; }
+    .ai-node {
+      position: absolute;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .ai-node.cyan { background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+    .ai-node.gold { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+    .ai-node.emerald { background: var(--emerald); box-shadow: 0 0 12px var(--emerald); }
+    .ai-label {
+      position: absolute;
+      background: rgba(26, 21, 48, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* ===========================
+       INVESTOR EXPERIENCE
+    =========================== */
+    #experience { background: var(--bg-primary); }
+    .exp-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+    .exp-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .exp-tab {
+      padding: 8px 24px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+    .exp-tab.active, .exp-tab:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .exp-mockup {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(18, 15, 34, 0.95);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,168,76,0.06);
+    }
+    .mockup-chrome {
+      background: rgba(26, 21, 48, 0.9);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .chrome-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+    .chrome-dot:nth-child(1) { background: #FF5F57; }
+    .chrome-dot:nth-child(2) { background: #FEBC2E; }
+    .chrome-dot:nth-child(3) { background: #28C840; }
+    .chrome-url {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0 12px;
+    }
+    .mockup-body { padding: 28px; }
+    .mock-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .mock-greeting { font-size: 0.75rem; color: var(--text-muted); }
+    .mock-greeting strong { display: block; font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+    .mock-notifications {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mock-notif-btn {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+    .mock-portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .mock-pcard {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+    .mock-pcard-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .mock-pcard-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .mock-pcard-value.gold { color: var(--gold); }
+    .mock-pcard-value.emerald { color: var(--emerald); }
+    .mock-pcard-change {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--emerald);
+      margin-top: 4px;
+    }
+    .mock-chart {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .mock-chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .mock-chart-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .mock-chart-period {
+      font-size: 0.7rem;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .mock-chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 80px;
+    }
+    .mock-cbar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(201,168,76,0.2) 100%);
+      transition: var(--transition);
+    }
+    .mock-cbar:hover { filter: brightness(1.2); }
+    .mock-cbar.active { background: linear-gradient(180deg, var(--cyan) 0%, rgba(0,229,255,0.2) 100%); }
+    .mock-activity {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .mock-activity-header {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .mock-activity-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .mock-activity-item:last-child { border-bottom: none; }
+    .mock-act-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+    .mock-act-info { flex: 1; }
+    .mock-act-title {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .mock-act-time {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .mock-act-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .mock-act-amount.positive { color: var(--emerald); }
+    .mock-act-amount.gold-text { color: var(--gold); }
+
+    /* ===========================
+       SECURITY
+    =========================== */
+    #security {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
+        var(--bg-secondary);
+    }
+    .security-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .security-content h2 { margin-bottom: 16px; }
+    .security-content p { font-size: 1.05rem; margin-bottom: 40px; }
+    .security-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .security-feature {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .security-feature:hover {
+      border-color: rgba(16,185,129,0.2);
+      background: rgba(26,21,48,0.9);
+    }
+    .sf-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--emerald-dim);
+      border: 1px solid rgba(16,185,129,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      min-width: 40px;
+    }
+    .sf-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+    .sf-desc { font-size: 0.8rem; margin-top: 2px; }
+
+    /* Security Visual */
+    .security-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .sec-card {
+      padding: 24px;
+    }
+    .sec-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .sec-card-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-verified-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--emerald);
+      background: var(--emerald-dim);
+      border: 1px solid rgba(16,185,129,0.2);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .sec-progress-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sec-progress-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sec-progress-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      width: 130px;
+      min-width: 130px;
+    }
+    .sec-progress-bar {
+      flex: 1;
+      height: 5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .sec-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--emerald), rgba(16,185,129,0.5));
+    }
+    .sec-progress-val {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--emerald);
+      width: 36px;
+      text-align: right;
+    }
+
+    /* ===========================
+       FAQ
+    =========================== */
+    #faq { background: var(--bg-primary); }
+    .faq-container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .faq-item.open {
+      border-color: var(--border);
+      box-shadow: var(--shadow-gold);
+    }
+    .faq-question {
+      width: 100%;
+      padding: 22px 28px;
+      background: var(--bg-card);
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: var(--transition);
+    }
+    .faq-question:hover { background: rgba(26,21,48,0.9); }
+    .faq-q-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .faq-arrow {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--gold);
+      min-width: 28px;
+      transition: transform var(--transition);
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 28px 24px;
+      background: var(--bg-card);
+    }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-answer p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 16px;
+    }
+
+    /* ===========================
+       CTA (kept for .cta-trust-row reuse)
+    =========================== */
+    .cta-trust-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .cta-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .cta-trust-item span { font-size: 1rem; }
+
+    /* ===========================
+       EXP-CTA CONVERSION BLOCK
+    =========================== */
+    .exp-cta-block {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+      padding-top: 72px;
+    }
+    .exp-cta-block::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 56px;
+      background: linear-gradient(180deg, transparent, rgba(201,168,76,0.35), transparent);
+      margin: 0 auto 56px;
+    }
+    .exp-cta-block h2 { margin-bottom: 16px; }
+    .exp-cta-block p { font-size: 1.05rem; margin-bottom: 0; }
+    @media (max-width: 768px) {
+      .exp-cta-block { padding-top: 48px; }
+      .exp-cta-block::before { height: 40px; margin-bottom: 40px; }
+    }
+    @media (max-width: 480px) {
+      .exp-cta-block { padding-top: 36px; }
+      .exp-cta-block::before { height: 28px; margin-bottom: 28px; }
+      .exp-cta-block h2 { font-size: 1.6rem; }
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: rgba(10, 8, 18, 0.98);
+      border-top: 1px solid var(--border-subtle);
+      padding: 64px 0 32px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand { }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .footer-logo-icon {
+      width: 36px; height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .footer-logo-icon img {
+      width: 36px; height: 36px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 6px rgba(201, 168, 76, 0.35));
+    }
+    .footer-logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      letter-spacing: 0.05em;
+    }
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+    .footer-social-btn {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+    .footer-social-btn:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .footer-contact-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.83rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .footer-contact-btn:hover {
+      border-color: var(--border);
+      color: var(--text-primary);
+      transform: translateX(3px);
+    }
+    .footer-contact-icon {
+      width: 32px; height: 32px;
+      min-width: 32px;
+      border-radius: 8px;
+      border: 1px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-col h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col ul a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+    }
+    .footer-col ul a:hover { color: var(--gold); transform: translateX(3px); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copyright { font-size: 0.78rem; color: var(--text-muted); }
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-legal a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-legal a:hover { color: var(--gold); }
+    .footer-disclaimer {
+      margin-top: 24px;
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+    .footer-disclaimer p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ===========================
+       ANIMATIONS & UTILITIES
+    =========================== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
+
+    /* ===========================
+       WHY INVESTORS CHOOSE NOVEX
+    =========================== */
+    #why-investors { background: var(--bg-secondary); }
+    .wi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .wi-card {
+      padding: 30px 26px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .wi-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .wi-card:hover { border-color: var(--border); transform: translateY(-4px); box-shadow: var(--shadow-gold); }
+    .wi-card:hover::after { opacity: 1; }
+    .wi-icon {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+      transition: var(--transition);
+    }
+    .wi-card:hover .wi-icon { transform: scale(1.1) rotate(-4deg); }
+    .wi-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .wi-card p { font-size: 0.875rem; line-height: 1.65; }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+
+    /* --- Tablet (≤1024px) --- */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+      .hero-sub { margin: 0 auto 36px; max-width: 560px; }
+      .hero-ctas { justify-content: center; }
+      .hero-trust-row { justify-content: center; }
+      .hero-visual { height: 380px; }
+      .ai-layout { grid-template-columns: 1fr; gap: 40px; }
+      .ai-visual { display: none; }
+      .security-layout { grid-template-columns: 1fr; gap: 40px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .wi-grid { grid-template-columns: 1fr 1fr; }
+      .behind-layout { grid-template-columns: 1fr; gap: 40px; }
+      .phone-side-l, .phone-side-r { display: none; }
+    }
+
+    /* --- Mobile (≤768px) --- */
+    @media (max-width: 768px) {
+      /* Layout */
+      .section-pad { padding: 72px 0; }
+      .container { padding: 0 1.25rem; }
+      /* Nav */
+      .nav-links { display: none; }
+      .nav-actions { display: none; }
+      .nav-mobile-toggle { display: flex; }
+      /* Hero */
+      .hero-visual { display: none; }
+      .hero-inner { gap: 36px; }
+      .hero-badge { font-size: 0.72rem; }
+      .hero-trust-row { flex-wrap: wrap; padding: 10px 14px; gap: 0; }
+      .htr-item { padding: 5px 10px; font-size: 0.78rem; }
+      .htr-sep { height: 14px; }
+      /* Grids */
+      .trust-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+      /* Why Investors — 2-column compact vertical cards on mobile */
+      .wi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .wi-card {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 16px;
+        border-radius: var(--radius-md);
+      }
+      .wi-icon {
+        width: 44px; height: 44px;
+        min-width: 44px;
+        margin-bottom: 14px;
+        border-radius: 11px;
+        font-size: 1.2rem;
+      }
+      .wi-card h3 {
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+        line-height: 1.35;
+      }
+      .wi-card p {
+        font-size: 0.78rem;
+        line-height: 1.55;
+      }
+      .wi-card:hover { transform: none; box-shadow: none; }
+      .wi-card::after { display: none; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      /* Badges — hidden on mobile */
+      #trust-badges { display: none; }
+      /* Phones */
+      .phones-showcase { padding: 20px 0 8px; }
+      .phone-center { width: 210px; }
+      .phones-labels { gap: 14px; }
+      .phone-label { font-size: 0.72rem; }
+      /* Behind */
+      .behind-principles { grid-template-columns: 1fr 1fr; }
+      /* Footer */
+      .footer-support-bar { flex-direction: column; align-items: flex-start; gap: 20px; padding: 24px; }
+      .fsb-links { gap: 8px; }
+      .hfb-1, .hfb-2, .hfb-3 { display: none; }
+      /* Section headers */
+      .section-header { margin-bottom: 48px; }
+    }
+
+    /* --- Small Mobile (≤480px) --- */
+    @media (max-width: 480px) {
+      .section-pad { padding: 56px 0; }
+      /* Typography */
+      h1 { font-size: 2.2rem; letter-spacing: -0.02em; }
+      h2 { font-size: 1.7rem; }
+      h3 { font-size: 1.15rem; }
+      /* Nav */
+      .nav-logo-text { font-size: 1.1rem; }
+      /* Hero */
+      .hero-headline em { display: block; }
+      .hero-ctas { flex-direction: column; align-items: center; gap: 12px; }
+      .hero-ctas .btn { width: 100%; max-width: 300px; justify-content: center; }
+      .hero-trust-row { gap: 0; }
+      .htr-item { padding: 4px 8px; font-size: 0.72rem; }
+      /* Grids → single column */
+      .trust-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .wi-grid { grid-template-columns: 1fr; }
+      .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .behind-principles { grid-template-columns: 1fr; }
+      /* Why Investors — single column compact vertical cards */
+      .wi-card {
+        padding: 16px 14px;
+      }
+      .wi-icon {
+        width: 40px; height: 40px;
+        min-width: 40px;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+      }
+      .wi-card h3 {
+        font-size: 0.88rem !important;
+        margin-bottom: 6px;
+        line-height: 1.3;
+      }
+      .wi-card p { font-size: 0.78rem; line-height: 1.5; }
+      /* Trust cards */
+      .trust-card { padding: 24px 20px; }
+      /* Steps */
+      .step-item { padding: 0 8px; }
+      /* Phone */
+      .phone-center { width: 195px; }
+      .phones-labels { gap: 10px; }
+      .phone-label { font-size: 0.68rem; }
+      /* FAQ */
+      .faq-question { padding: 18px 20px; }
+      .faq-answer { padding: 0 20px 20px; }
+      /* Exp-CTA block */
+      .exp-cta-block .hero-ctas { flex-direction: column; }
+      /* Footer */
+      .footer-support-bar { padding: 20px; }
+      .fsb-link { padding: 8px 14px; font-size: 0.76rem; }
+      .fsb-links { flex-direction: column; width: 100%; }
+      .fsb-link { justify-content: center; }
+      /* Language switcher */
+      .lang-btn .lang-code { display: none; }
+      .lang-btn { padding: 5px 8px; }
+    }
+
+    /* ===========================
+       TRUST BADGES STRIP
+    =========================== */
+    #trust-badges {
+      padding: 32px 0;
+      background: rgba(10, 8, 18, 0.8);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .tbadges-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .tbadge-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 22px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    .tbadge-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--emerald-dim);
+      border: 1px solid rgba(16,185,129,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.58rem;
+      color: var(--emerald);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .tbadge-sep {
+      width: 1px; height: 18px;
+      background: var(--border-subtle);
+    }
+
+    /* ===========================
+       PHONE MOCKUPS
+    =========================== */
+    /* ===== EXPERIENCE FLOATING LOGOS ===== */
+    .exp-phones-area {
+      position: relative;
+    }
+    .exp-float-logo {
+      position: absolute;
+      z-index: 4;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .exp-float-logo img {
+      object-fit: contain;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+    .exp-float-ring {
+      position: absolute;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .exp-float-ring.exp-float-ring-1 {
+      border: 1.5px solid rgba(201,168,76,0.25);
+    }
+    .exp-float-ring.exp-float-ring-2 {
+      border: 1px dashed rgba(201,168,76,0.1);
+    }
+
+    /* ---- LEFT LOGO: lower & tilted left more dramatically ---- */
+    .exp-float-l {
+      left: 3%;
+      bottom: 18%;            /* LOWER on screen */
+      animation: exp-float-l 8.5s ease-in-out infinite;
+    }
+    .exp-float-l img {
+      width: 124px; height: 124px;
+      opacity: 0.88;
+      filter:
+        drop-shadow(0 0 32px rgba(201,168,76,0.6))
+        drop-shadow(0 8px 18px rgba(0,0,0,0.5));
+    }
+    .exp-float-l .exp-float-ring-1 { width: 156px; height: 156px; animation: spin-slow 16s linear infinite; }
+    .exp-float-l .exp-float-ring-2 { width: 190px; height: 190px; animation: spin-slow 27s linear infinite reverse; }
+
+    /* ---- RIGHT LOGO: higher & tilted right at a different angle ---- */
+    .exp-float-r {
+      right: 3%;
+      top: 6%;                /* HIGHER on screen */
+      animation: exp-float-r 10.5s ease-in-out infinite 3.4s;
+    }
+    .exp-float-r img {
+      width: 104px; height: 104px;
+      opacity: 0.80;
+      filter:
+        drop-shadow(0 0 26px rgba(201,168,76,0.5))
+        drop-shadow(0 6px 14px rgba(0,0,0,0.45));
+    }
+    .exp-float-r .exp-float-ring-1 { width: 130px; height: 130px; animation: spin-slow 21s linear infinite reverse; }
+    .exp-float-r .exp-float-ring-2 { width: 160px; height: 160px; animation: spin-slow 34s linear infinite; }
+
+    /*
+      Natural multi-point keyframes — 7 stops, uneven spacing,
+      independent X/Y drift + rotation + subtle scale = organic float feel.
+      Left:  rotation range -4° → -11°  (tilted left)
+      Right: rotation range  6° → 15°   (different angle, steeper)
+    */
+    @keyframes exp-float-l {
+      0%   { transform: rotate(-7deg)  scale(1.000) translate(  0px,   0px); }
+      14%  { transform: rotate(-3deg)  scale(1.018) translate( -6px, -18px); }
+      30%  { transform: rotate(-11deg) scale(0.987) translate(  5px,  -9px); }
+      48%  { transform: rotate(-4deg)  scale(1.013) translate( -8px, -22px); }
+      65%  { transform: rotate(-10deg) scale(0.993) translate(  7px,  -7px); }
+      82%  { transform: rotate(-5deg)  scale(1.007) translate( -4px, -15px); }
+      100% { transform: rotate(-7deg)  scale(1.000) translate(  0px,   0px); }
+    }
+    @keyframes exp-float-r {
+      0%   { transform: rotate(10deg)  scale(1.000) translate(  0px,   0px); }
+      17%  { transform: rotate( 6deg)  scale(1.022) translate(  8px, -13px); }
+      34%  { transform: rotate(15deg)  scale(0.984) translate( -5px,  -5px); }
+      53%  { transform: rotate( 7deg)  scale(1.016) translate( 10px, -19px); }
+      70%  { transform: rotate(14deg)  scale(0.991) translate( -6px,  -4px); }
+      87%  { transform: rotate( 8deg)  scale(1.009) translate(  6px, -15px); }
+      100% { transform: rotate(10deg)  scale(1.000) translate(  0px,   0px); }
+    }
+
+    @media (max-width: 1024px) { .exp-float-logo { display: none; } }
+
+    .phones-showcase {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      position: relative;
+      padding: 40px 0 16px;
+    }
+    .phone {
+      width: 196px;
+      background: #0D0B1C;
+      border-radius: 32px;
+      border: 2px solid rgba(255,255,255,0.07);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 32px 72px rgba(0,0,0,0.65);
+    }
+    .phone-center {
+      width: 224px;
+      z-index: 3;
+      position: relative;
+      border-color: rgba(201,168,76,0.22);
+      box-shadow: 0 40px 90px rgba(0,0,0,0.75), 0 0 50px rgba(201,168,76,0.06);
+    }
+    .phone-side-l {
+      transform: rotate(-7deg) translateX(40px) translateY(28px);
+      z-index: 2;
+      opacity: 0.6;
+    }
+    .phone-side-r {
+      transform: rotate(7deg) translateX(-40px) translateY(28px);
+      z-index: 2;
+      opacity: 0.6;
+    }
+    .phone-statusbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 14px 0;
+      font-size: 0.5rem;
+      color: rgba(255,255,255,0.35);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .phone-pill {
+      width: 64px; height: 16px;
+      background: #0D0B1C;
+      border-radius: 0 0 10px 10px;
+      margin: -16px auto 0;
+      position: relative;
+      z-index: 5;
+    }
+    .phone-body {
+      padding: 6px 13px 12px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    /* Phone screen UI primitives */
+    .p-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 11px; padding: 3px 0; }
+    .p-hdr-title { font-family: 'Space Grotesk',sans-serif; font-size: 0.78rem; font-weight: 700; color: #F0ECF8; }
+    .p-hdr-btn {
+      width: 22px; height: 22px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.58rem;
+    }
+    .p-hdr-btn.back { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.35); }
+    .p-hdr-btn.action { background: rgba(201,168,76,0.12); color: #C9A84C; }
+    .p-hdr-btn.notif { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); }
+    .p-balance-card {
+      background: linear-gradient(135deg, rgba(201,168,76,0.18), rgba(201,168,76,0.05));
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 12px;
+      padding: 11px 12px;
+      margin-bottom: 9px;
+    }
+    .p-bal-label { font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); margin-bottom: 3px; }
+    .p-bal-val { font-family: 'Space Grotesk',sans-serif; font-size: 1.25rem; font-weight: 700; color: #E8C96A; line-height: 1; margin-bottom: 3px; }
+    .p-bal-change { font-size: 0.55rem; font-weight: 600; color: #10B981; }
+    .p-stats2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 9px; }
+    .p-stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.05); border-radius: 9px; padding: 8px; }
+    .p-stat-lbl { font-size: 0.48rem; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); margin-bottom: 2px; }
+    .p-stat-val { font-family: 'Space Grotesk',sans-serif; font-size: 0.7rem; font-weight: 700; color: #F0ECF8; }
+    .p-stat-val.cy { color: #00E5FF; }
+    .p-stat-val.em { color: #10B981; }
+    .p-stat-val.gd { color: #C9A84C; }
+    .p-sec-lbl { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 5px; }
+    .p-bars { display: flex; align-items: flex-end; gap: 3px; height: 32px; margin-bottom: 9px; }
+    .p-bar { flex: 1; border-radius: 2px 2px 0 0; background: linear-gradient(180deg, rgba(201,168,76,0.85), rgba(201,168,76,0.2)); }
+    .p-act { display: flex; flex-direction: column; gap: 5px; }
+    .p-act-row { display: flex; align-items: center; gap: 7px; padding: 5px 7px; background: rgba(255,255,255,0.03); border-radius: 7px; }
+    .p-act-ico { width: 20px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; flex-shrink: 0; }
+    .p-act-inf { flex: 1; }
+    .p-act-t { font-size: 0.55rem; font-weight: 500; color: #E8E4F0; }
+    .p-act-tm { font-size: 0.47rem; color: rgba(255,255,255,0.28); }
+    .p-act-amt { font-family: 'Space Grotesk',sans-serif; font-size: 0.58rem; font-weight: 700; }
+    .p-act-amt.pos { color: #10B981; }
+    .p-act-amt.cy { color: #00E5FF; }
+    .p-tabbar { display: flex; justify-content: space-around; padding: 7px 0 4px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+    .p-tabico { font-size: 0.85rem; opacity: 0.28; }
+    .p-tabico.on { opacity: 1; filter: drop-shadow(0 0 4px rgba(201,168,76,0.5)); }
+    .p-prog-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
+    .p-prog-lbl { font-size: 0.5rem; color: rgba(255,255,255,0.35); }
+    .p-prog-track { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 7px; }
+    .p-prog-fill { height: 100%; background: linear-gradient(90deg, #C9A84C, rgba(201,168,76,0.4)); border-radius: 2px; }
+    .p-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.05); border-radius: 9px; padding: 9px; margin-bottom: 7px; }
+    .p-btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 9px; }
+    .p-btn { padding: 7px; border-radius: 7px; font-size: 0.58rem; font-weight: 700; text-align: center; font-family: 'Space Grotesk',sans-serif; }
+    .p-btn.prim { background: linear-gradient(135deg, #C9A84C, #A07832); color: #0D0A1A; }
+    .p-btn.outl { border: 1px solid rgba(201,168,76,0.3); color: #C9A84C; }
+    .p-bals { padding: 10px 12px; background: linear-gradient(135deg, rgba(201,168,76,0.18), rgba(201,168,76,0.04)); border: 1px solid rgba(201,168,76,0.18); border-radius: 12px; text-align: center; margin-bottom: 10px; }
+    .phones-labels {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .phone-label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--text-muted);
+    }
+    .phone-label-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); opacity: 0.5;
+    }
+    .phone-label.active .phone-label-dot { opacity: 1; box-shadow: 0 0 8px var(--gold); }
+    .phone-label.active { color: var(--gold); }
+
+    /* ===========================
+       BEHIND NOVEX
+    =========================== */
+    #behind-novex {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(107,70,193,0.08) 0%, transparent 60%),
+        var(--bg-primary);
+    }
+    .behind-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .behind-content h2 { margin-bottom: 16px; }
+    .behind-content .behind-p { font-size: 1rem; line-height: 1.75; margin-bottom: 14px; }
+    .behind-principles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+    .principle-card {
+      padding: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .principle-card:hover { border-color: var(--border); }
+    .principle-ico { font-size: 1.25rem; margin-bottom: 8px; }
+    .principle-title { font-family: 'Space Grotesk',sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+    .principle-desc { font-size: 0.78rem; line-height: 1.6; }
+    .behind-pillars { display: flex; flex-direction: column; gap: 14px; }
+    .bpillar {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .bpillar:hover { border-color: var(--border); }
+    .bpillar-num {
+      font-family: 'Space Grotesk',sans-serif;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--gold);
+      opacity: 0.4;
+      min-width: 40px;
+      line-height: 1;
+    }
+    .bpillar-title { font-family: 'Space Grotesk',sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+    .bpillar-desc { font-size: 0.8rem; }
+
+    /* ===========================
+       AI COMPACT GRID
+    =========================== */
+    .ai-compact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .ai-compact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .ai-compact-card:hover {
+      border-color: var(--border);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-gold);
+    }
+    .ai-compact-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 14px;
+    }
+    .ai-compact-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .ai-compact-desc {
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+    @media (max-width: 768px) { .ai-compact-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .ai-compact-grid { grid-template-columns: 1fr; } }
+
+    /* ===========================
+       FOOTER SUPPORT
+    =========================== */
+    .footer-support-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .fsb-title { font-family: 'Space Grotesk',sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+    .fsb-sub { font-size: 0.8rem; color: var(--text-muted); }
+    .fsb-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .fsb-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .fsb-link:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+
+
+    /* ===========================
+       MOBILE NAV DRAWER
+    =========================== */
+    .mobile-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      backdrop-filter: blur(4px);
+    }
+    .mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
+    .mobile-nav-drawer {
+      position: fixed;
+      top: 0; right: -100%; bottom: 0;
+      width: 280px;
+      background: rgba(13, 10, 26, 0.98);
+      backdrop-filter: blur(32px);
+      border-left: 1px solid var(--border-subtle);
+      z-index: 1000;
+      padding: 0 0 32px;
+      transition: right 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .mobile-nav-drawer.open { right: 0; }
+    .mobile-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 12px;
+    }
+    .mobile-drawer-logo {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .mobile-drawer-logo-icon {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .mobile-drawer-logo-icon img {
+      width: 32px; height: 32px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 6px rgba(201, 168, 76, 0.35));
+    }
+    .mobile-drawer-logo-text {
+      font-family: 'Space Grotesk',sans-serif;
+      font-weight: 700; font-size: 1.1rem; color: var(--text-primary);
+      letter-spacing: 0.05em;
+    }
+    .mobile-close-btn {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-subtle);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem; color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .mobile-close-btn:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+    .mobile-nav-links { padding: 0 16px; flex: 1; }
+    .mobile-nav-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem; font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      margin-bottom: 4px;
+    }
+    .mobile-nav-link:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border-subtle);
+      color: var(--text-primary);
+    }
+    .mobile-nav-link-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .mobile-nav-sep {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 12px 16px;
+    }
+    .mobile-nav-cta {
+      margin: 12px 16px 0;
+      padding: 15px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--gold), #A07832);
+      color: #0D0A1A;
+      border-radius: 100px;
+      font-weight: 700; font-size: 0.95rem;
+      text-decoration: none;
+      display: block;
+      font-family: 'Space Grotesk',sans-serif;
+      box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+      transition: var(--transition);
+    }
+    .mobile-nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.4); }
+    /* Hamburger animation */
+    .nav-mobile-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-mobile-toggle.open span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
+    .nav-mobile-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ===========================
+       LANGUAGE SWITCHER
+    =========================== */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      padding: 4px;
+      margin-left: 10px;
+    }
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .lang-btn.active {
+      background: var(--gold-dim);
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.25);
+    }
+    .lang-btn:hover:not(.active) {
+      background: rgba(255,255,255,0.07);
+      color: var(--text-primary);
+    }
+    .lang-flag {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      line-height: 1;
+      /* clip flag emoji into circle */
+      flex-shrink: 0;
+    }
+    @media (max-width: 480px) {
+      .lang-btn span.lang-code { display: none; }
+      .lang-btn { padding: 5px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================
+       NAVBAR
+  ================================= -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon"><img src="Novex_logo.png" alt="NOVEX" /></div>
+        <span class="nav-logo-text">NOV<span>EX</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#experience" data-i18n="nav.app">The App</a></li>
+        <li><a href="#how-it-works" data-i18n="nav.works">How It Works</a></li>
+        <li><a href="#why-investors" data-i18n="nav.why">Why NOVEX</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#experience" class="btn btn-primary" style="padding:10px 24px; font-size:0.85rem;" data-i18n="nav.start">Get Started</a>
+      </div>
+      <!-- Language Switcher -->
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en" onclick="switchLang('en',this)">
+          <span class="lang-flag">🇺🇸</span>
+          <span class="lang-code">EN</span>
+        </button>
+        <button class="lang-btn" data-lang="id" onclick="switchLang('id',this)">
+          <span class="lang-flag">🇮🇩</span>
+          <span class="lang-code">ID</span>
+        </button>
+      </div>
+      <div class="nav-mobile-toggle" id="mobileToggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav Overlay + Drawer -->
+  <div id="mobileOverlay" class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
+  <div id="mobileDrawer" class="mobile-nav-drawer">
+    <div class="mobile-drawer-header">
+      <div class="mobile-drawer-logo">
+        <div class="mobile-drawer-logo-icon"><img src="Novex_logo.png" alt="NOVEX" /></div>
+        <span class="mobile-drawer-logo-text">NOVEX</span>
+      </div>
+      <div class="mobile-close-btn" onclick="closeMobileNav()">✕</div>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="#experience" class="mobile-nav-link" onclick="closeMobileNav()">
+        <div class="mobile-nav-link-icon">📱</div>
+        <span data-i18n="nav.app">The App</span>
+      </a>
+      <a href="#how-it-works" class="mobile-nav-link" onclick="closeMobileNav()">
+        <div class="mobile-nav-link-icon">⟳</div>
+        <span data-i18n="nav.works">How It Works</span>
+      </a>
+      <a href="#why-investors" class="mobile-nav-link" onclick="closeMobileNav()">
+        <div class="mobile-nav-link-icon">💡</div>
+        <span data-i18n="nav.why">Why NOVEX</span>
+      </a>
+      <a href="#faq" class="mobile-nav-link" onclick="closeMobileNav()">
+        <div class="mobile-nav-link-icon">❓</div>
+        <span>FAQ</span>
+      </a>
+      <div class="mobile-nav-sep"></div>
+    </div>
+    <a href="#experience" class="mobile-nav-cta" onclick="closeMobileNav()" data-i18n="nav.start">Get Started</a>
+  </div>
+
+  <!-- ================================
+       HERO
+  ================================= -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <!-- Content -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <div class="hero-badge-dot"></div>
+            <span data-i18n="hero.badge">Structured Investment Platform</span>
+          </div>
+          <h1 class="hero-headline">
+            <em data-i18n="hero.h1a">Your Investment,</em>
+            <em><span class="text-gradient" data-i18n="hero.h1b">Structured</span></em>
+            <em data-i18n="hero.h1c">&amp; AI-Monitored.</em>
+          </h1>
+          <p class="hero-sub" data-i18n="hero.sub">
+            Join investment cycles, track your portfolio in real time, and receive weekly distributions — all from one clean, secure dashboard.
+          </p>
+          <div class="hero-ctas">
+            <a href="#experience" class="btn btn-primary">
+              <span data-i18n="hero.cta1">Start Investing</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </a>
+            <a href="#how-it-works" class="btn btn-outline" data-i18n="hero.cta2">
+              Learn More
+            </a>
+          </div>
+          <div class="hero-trust-row">
+            <div class="htr-item">
+              <div class="htr-check">✓</div>
+              <span data-i18n="htr.1">AI Monitoring</span>
+            </div>
+            <div class="htr-sep"></div>
+            <div class="htr-item">
+              <div class="htr-check">✓</div>
+              <span data-i18n="htr.2">KYC Verification</span>
+            </div>
+            <div class="htr-sep"></div>
+            <div class="htr-item">
+              <div class="htr-check">✓</div>
+              <span data-i18n="htr.3">Structured Distribution</span>
+            </div>
+            <div class="htr-sep"></div>
+            <div class="htr-item">
+              <div class="htr-check">✓</div>
+              <span data-i18n="htr.4">Investor Dashboard</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual -->
+        <div class="hero-visual">
+          <div class="hero-orb hero-orb-1"></div>
+          <div class="hero-orb hero-orb-2"></div>
+          <div class="hero-orb hero-orb-3"></div>
+
+          <!-- Network SVG -->
+          <svg class="hero-network" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;opacity:0.35;">
+            <circle cx="250" cy="250" r="180" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="8 6"/>
+            <circle cx="250" cy="250" r="120" stroke="rgba(0,229,255,0.12)" stroke-width="1"/>
+            <line x1="250" y1="70" x2="130" y2="180" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+            <line x1="250" y1="70" x2="370" y2="180" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+            <line x1="130" y1="180" x2="100" y2="320" stroke="rgba(0,229,255,0.15)" stroke-width="1"/>
+            <line x1="370" y1="180" x2="400" y2="320" stroke="rgba(0,229,255,0.15)" stroke-width="1"/>
+            <line x1="100" y1="320" x2="200" y2="420" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+            <line x1="400" y1="320" x2="300" y2="420" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+            <line x1="200" y1="420" x2="300" y2="420" stroke="rgba(0,229,255,0.12)" stroke-width="1"/>
+            <circle cx="250" cy="70" r="5" fill="rgba(201,168,76,0.6)"/>
+            <circle cx="130" cy="180" r="4" fill="rgba(0,229,255,0.5)"/>
+            <circle cx="370" cy="180" r="4" fill="rgba(0,229,255,0.5)"/>
+            <circle cx="100" cy="320" r="4" fill="rgba(201,168,76,0.4)"/>
+            <circle cx="400" cy="320" r="4" fill="rgba(201,168,76,0.4)"/>
+            <circle cx="200" cy="420" r="4" fill="rgba(0,229,255,0.4)"/>
+            <circle cx="300" cy="420" r="4" fill="rgba(0,229,255,0.4)"/>
+          </svg>
+
+          <!-- Dashboard Card -->
+          <div class="hero-dashboard">
+            <div class="dash-header">
+              <span class="dash-header-label">Portfolio Overview</span>
+              <div class="dash-status">
+                <div class="dash-status-dot"></div>
+                Live
+              </div>
+            </div>
+            <div class="dash-value"><span>$</span>48,260</div>
+            <div class="dash-change">↑ +12.4% this cycle</div>
+            <div class="dash-bars">
+              <div class="dash-bar" style="height:40%"></div>
+              <div class="dash-bar" style="height:55%"></div>
+              <div class="dash-bar" style="height:38%"></div>
+              <div class="dash-bar" style="height:70%"></div>
+              <div class="dash-bar" style="height:60%"></div>
+              <div class="dash-bar" style="height:85%"></div>
+              <div class="dash-bar" style="height:72%"></div>
+              <div class="dash-bar" style="height:95%"></div>
+            </div>
+            <div class="dash-metrics">
+              <div class="dash-metric">
+                <div class="dash-metric-label">AI Status</div>
+                <div class="dash-metric-value cyan">Active</div>
+              </div>
+              <div class="dash-metric">
+                <div class="dash-metric-label">Next Payout</div>
+                <div class="dash-metric-value emerald">3d 12h</div>
+              </div>
+              <div class="dash-metric">
+                <div class="dash-metric-label">Cycle</div>
+                <div class="dash-metric-value">Week 4</div>
+              </div>
+              <div class="dash-metric">
+                <div class="dash-metric-label">Risk Score</div>
+                <div class="dash-metric-value" style="color:var(--gold)">Low</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Badges -->
+          <div class="hero-float-badge hfb-1">
+            <div class="hfb-icon cyan">🤖</div>
+            <div>
+              <div class="hfb-label">AI Monitoring</div>
+              <div class="hfb-value">Operational</div>
+            </div>
+          </div>
+          <div class="hero-float-badge hfb-2">
+            <div class="hfb-icon emerald">✓</div>
+            <div>
+              <div class="hfb-label">KYC Verified</div>
+              <div class="hfb-value">Secured</div>
+            </div>
+          </div>
+          <div class="hero-float-badge hfb-3">
+            <div class="hfb-icon gold">◆</div>
+            <div>
+              <div class="hfb-label">Cycle Status</div>
+              <div class="hfb-value">Active</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       TRUST INDICATORS
+  ================================= -->
+  <section id="trust">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-card fade-up">
+          <div class="trust-icon gold">🤖</div>
+          <div class="trust-title" data-i18n="trust.1t">AI-Powered Monitoring</div>
+          <p class="trust-desc" data-i18n="trust.1d">Continuous operational intelligence ensures every investment cycle is tracked and analyzed in real time.</p>
+        </div>
+        <div class="trust-card fade-up delay-1">
+          <div class="trust-icon cyan">⟳</div>
+          <div class="trust-title" data-i18n="trust.2t">Structured Investment Cycles</div>
+          <p class="trust-desc" data-i18n="trust.2d">Disciplined cycle-based management removes emotional decision-making and brings institutional-grade discipline.</p>
+        </div>
+        <div class="trust-card fade-up delay-2">
+          <div class="trust-icon emerald">✦</div>
+          <div class="trust-title" data-i18n="trust.3t">Verified Investor Ecosystem</div>
+          <p class="trust-desc" data-i18n="trust.3d">Every participant undergoes identity verification, building a trusted community of qualified investors.</p>
+        </div>
+        <div class="trust-card fade-up delay-3">
+          <div class="trust-icon purple">◈</div>
+          <div class="trust-title" data-i18n="trust.4t">Operational Distribution</div>
+          <p class="trust-desc" data-i18n="trust.4d">Transparent profit distribution protocols with clearly defined windows and verifiable transaction records.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       HOW NOVEX WORKS
+  ================================= -->
+  <section id="how-it-works" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label" data-i18n="how.label">Process</div>
+        <h2 data-i18n-html="how.title">How <span class="text-gradient">NOVEX</span> Works</h2>
+        <div class="divider"></div>
+        <p data-i18n="how.sub">A transparent, four-step journey from onboarding to profit distribution — designed for clarity and confidence.</p>
+      </div>
+
+      <div class="steps-container">
+        <div class="steps-grid">
+          <div class="step-item fade-up delay-1">
+            <div class="step-number-wrap">
+              <div class="step-number-ring"></div>
+              <div class="step-number">01</div>
+              <div class="step-icon-badge">🌐</div>
+            </div>
+            <div class="step-title" data-i18n="step.1t">Join an Investment Cycle</div>
+            <p class="step-desc" data-i18n="step.1d">Complete KYC verification, fund your account, and select your preferred investment cycle to get started.</p>
+          </div>
+          <div class="step-item fade-up delay-2">
+            <div class="step-number-wrap">
+              <div class="step-number-ring"></div>
+              <div class="step-number">02</div>
+              <div class="step-icon-badge">🏛</div>
+            </div>
+            <div class="step-title" data-i18n="step.2t">Funds Enter Structured Management</div>
+            <p class="step-desc" data-i18n="step.2d">Your capital enters a structured management protocol governed by predefined operational parameters.</p>
+          </div>
+          <div class="step-item fade-up delay-3">
+            <div class="step-number-wrap">
+              <div class="step-number-ring"></div>
+              <div class="step-number">03</div>
+              <div class="step-icon-badge">🤖</div>
+            </div>
+            <div class="step-title" data-i18n="step.3t">AI Monitoring & Analysis</div>
+            <p class="step-desc" data-i18n="step.3d">Our AI engine continuously monitors performance, operational health, and cycle progression across all positions.</p>
+          </div>
+          <div class="step-item fade-up delay-4">
+            <div class="step-number-wrap">
+              <div class="step-number-ring"></div>
+              <div class="step-number">04</div>
+              <div class="step-icon-badge">💎</div>
+            </div>
+            <div class="step-title" data-i18n="step.4t">Profit Distribution</div>
+            <p class="step-desc" data-i18n="step.4d">Returns are distributed to investor wallets on scheduled windows, with full transparency and verifiable records.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       WHY INVESTORS CHOOSE NOVEX
+  ================================= -->
+  <section id="why-investors" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label" data-i18n="wi.label">For Investors</div>
+        <h2 data-i18n-html="wi.title">Why Investors Choose <span class="text-gradient">NOVEX</span></h2>
+        <div class="divider"></div>
+        <p data-i18n="wi.sub">Every feature is built around the investor's perspective — clarity, transparency, and a platform that actually works.</p>
+      </div>
+      <div class="wi-grid">
+        <div class="wi-card fade-up delay-1">
+          <div class="wi-icon" style="background:var(--cyan-dim); border:1px solid rgba(0,229,255,0.15);">📊</div>
+          <h3 data-i18n="wi.c1t">Transparent Dashboard</h3>
+          <p data-i18n="wi.c1d">Track your portfolio, active investment cycles, and distribution history from a single clear interface.</p>
+        </div>
+        <div class="wi-card fade-up delay-2">
+          <div class="wi-icon" style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2);">🤖</div>
+          <h3 data-i18n="wi.c2t">AI-Assisted Monitoring</h3>
+          <p data-i18n="wi.c2d">Continuous operational oversight designed to improve visibility, consistency, and cycle performance.</p>
+        </div>
+        <div class="wi-card fade-up delay-3">
+          <div class="wi-icon" style="background:var(--emerald-dim); border:1px solid rgba(16,185,129,0.15);">🔐</div>
+          <h3 data-i18n="wi.c3t">Secure Account Verification</h3>
+          <p data-i18n="wi.c3d">KYC identity checks, OTP authentication, and multi-layer account protection built into every account.</p>
+        </div>
+        <div class="wi-card fade-up delay-1">
+          <div class="wi-icon" style="background:rgba(107,70,193,0.12); border:1px solid rgba(107,70,193,0.2);">⟳</div>
+          <h3 data-i18n="wi.c4t">Structured Investment Cycles</h3>
+          <p data-i18n="wi.c4d">Clear participation periods with organized cycle management — no ambiguity, no surprises.</p>
+        </div>
+        <div class="wi-card fade-up delay-2">
+          <div class="wi-icon" style="background:var(--gold-dim); border:1px solid rgba(201,168,76,0.2);">💰</div>
+          <h3 data-i18n="wi.c5t">Weekly Withdrawal Window</h3>
+          <p data-i18n="wi.c5d">Predictable withdrawal scheduling so you always know when your funds become accessible.</p>
+        </div>
+        <div class="wi-card fade-up delay-3">
+          <div class="wi-icon" style="background:var(--cyan-dim); border:1px solid rgba(0,229,255,0.15);">💬</div>
+          <h3 data-i18n="wi.c6t">Dedicated Support</h3>
+          <p data-i18n="wi.c6d">Access to assistance throughout your investment journey — onboarding, questions, or guidance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       TRUST BADGES
+  ================================= -->
+  <section id="trust-badges">
+    <div class="container">
+      <div class="tbadges-strip">
+        <div class="tbadge-item"><div class="tbadge-check">✓</div><span data-i18n="tb.1">KYC Verification</span></div>
+        <div class="tbadge-sep"></div>
+        <div class="tbadge-item"><div class="tbadge-check">✓</div><span data-i18n="tb.2">OTP Authentication</span></div>
+        <div class="tbadge-sep"></div>
+        <div class="tbadge-item"><div class="tbadge-check">✓</div><span data-i18n="tb.3">Portfolio Monitoring</span></div>
+        <div class="tbadge-sep"></div>
+        <div class="tbadge-item"><div class="tbadge-check">✓</div><span data-i18n="tb.4">Distribution Tracking</span></div>
+        <div class="tbadge-sep"></div>
+        <div class="tbadge-item"><div class="tbadge-check">✓</div><span data-i18n="tb.5">Customer Support</span></div>
+        <div class="tbadge-sep"></div>
+        <div class="tbadge-item"><div class="tbadge-check">✓</div><span data-i18n="tb.6">Activity Notifications</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       AI ENGINE
+  ================================= -->
+  <section id="ai-engine" style="padding:64px 0; background:var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header fade-up" style="margin-bottom:40px;">
+        <div class="section-label" data-i18n="ai.label">Technology</div>
+        <h2 data-i18n-html="ai.title">Technology Designed<br><span class="text-gradient-cyan">for Investors</span></h2>
+        <p style="max-width:560px;margin:16px auto 0;" data-i18n="ai.sub">NOVEX uses AI-powered monitoring so every investor has clear, real-time visibility into their portfolio, cycles, and distributions.</p>
+      </div>
+      <div class="ai-compact-grid fade-up delay-1">
+        <div class="ai-compact-card">
+          <div class="ai-compact-icon" style="background:var(--cyan-dim);border:1px solid rgba(0,229,255,0.15);">📊</div>
+          <div class="ai-compact-title" data-i18n="ai.p1t">Portfolio Visibility</div>
+          <p class="ai-compact-desc" data-i18n="ai.p1d">Real-time tracking of your cycles, balances, and distributions.</p>
+        </div>
+        <div class="ai-compact-card">
+          <div class="ai-compact-icon" style="background:var(--gold-dim);border:1px solid rgba(201,168,76,0.2);">🔄</div>
+          <div class="ai-compact-title" data-i18n="ai.p2t">Cycle Monitoring</div>
+          <p class="ai-compact-desc" data-i18n="ai.p2d">Continuous oversight of every active investment cycle.</p>
+        </div>
+        <div class="ai-compact-card">
+          <div class="ai-compact-icon" style="background:var(--emerald-dim);border:1px solid rgba(16,185,129,0.15);">💸</div>
+          <div class="ai-compact-title" data-i18n="ai.p3t">Auto Distribution</div>
+          <p class="ai-compact-desc" data-i18n="ai.p3d">Distributions processed automatically on schedule.</p>
+        </div>
+        <div class="ai-compact-card">
+          <div class="ai-compact-icon" style="background:rgba(107,70,193,0.12);border:1px solid rgba(107,70,193,0.2);">🛡</div>
+          <div class="ai-compact-title" data-i18n="ai.p4t">Platform Integrity</div>
+          <p class="ai-compact-desc" data-i18n="ai.p4d">Automated safeguards keep investor funds handled correctly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       FAQ
+  ================================= -->
+  <section id="faq" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">FAQ</div>
+        <h2 data-i18n-html="faq.title">Frequently Asked <span class="text-gradient">Questions</span></h2>
+        <div class="divider"></div>
+        <p data-i18n="faq.sub">Clear answers to the questions investors ask most. If you need more detail, our support team is available 24/7.</p>
+      </div>
+
+      <div class="faq-container fade-up delay-1">
+        <div class="faq-item open">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-q-text" data-i18n="faq.q1">How does NOVEX work?</span>
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a1">NOVEX operates as a structured investment ecosystem. Investors join defined investment cycles, contribute capital, and participate in distributions based on operational results. An AI-powered monitoring engine oversees all cycle activity, ensuring transparency and operational consistency throughout the process.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-q-text" data-i18n="faq.q2">How are investment cycles managed?</span>
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a2">Investment cycles follow strict operational frameworks with predefined durations, parameters, and distribution schedules. Each cycle is governed by established protocols that remove subjective decision-making and ensure every investor is treated consistently within the same cycle conditions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-q-text" data-i18n="faq.q3">How does profit distribution work?</span>
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a3">Profit distributions occur on scheduled weekly windows. Once a distribution event is triggered, funds are automatically allocated to investor wallets according to their participation level within the cycle. All distributions are recorded and visible in the investor dashboard.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-q-text" data-i18n="faq.q4">When can withdrawals be requested?</span>
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a4">Withdrawal requests can be initiated through your investor dashboard during designated withdrawal windows. The availability of funds depends on your current cycle status and the terms of your investment participation. Full details are provided upon account registration and cycle enrollment.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-q-text" data-i18n="faq.q5">How is account security handled?</span>
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a5">NOVEX employs multiple security layers including email verification, OTP-based two-factor authentication, and continuous AI monitoring for suspicious activity. All account actions require authentication, and investor data is protected with enterprise-grade encryption protocols.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-q-text" data-i18n="faq.q6">How does KYC verification work?</span>
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a6">KYC (Know Your Customer) verification is required for all NOVEX investors before accessing investment cycles. The process involves submitting a valid government-issued identity document and completing a brief verification check. This process protects all participants and ensures a trusted investor community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       APP EXPERIENCE + JOIN NOVEX
+  ================================= -->
+  <section id="experience" class="section-pad" style="background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(107,70,193,0.08) 0%, transparent 60%), var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header exp-header fade-up">
+        <div class="section-label" data-i18n="exp.label">The Platform</div>
+        <h2 data-i18n-html="exp.title">The <span class="text-gradient">NOVEX App</span></h2>
+        <div class="divider"></div>
+        <p data-i18n="exp.sub">Your portfolio, investment cycles, wallet, and notifications — all accessible from a single, clean mobile interface.</p>
+      </div>
+
+      <!-- PHONE MOCKUP TRIO + FLOATING LOGOS -->
+      <div class="exp-phones-area">
+
+        <!-- Floating Logo Left -->
+        <div class="exp-float-logo exp-float-l fade-up delay-2">
+          <div class="exp-float-ring exp-float-ring-1"></div>
+          <div class="exp-float-ring exp-float-ring-2"></div>
+          <img src="Novex_logo.png" alt="NOVEX" />
+        </div>
+
+        <!-- Floating Logo Right -->
+        <div class="exp-float-logo exp-float-r fade-up delay-4">
+          <div class="exp-float-ring exp-float-ring-1"></div>
+          <div class="exp-float-ring exp-float-ring-2"></div>
+          <img src="Novex_logo.png" alt="NOVEX" />
+        </div>
+
+      <div class="phones-showcase fade-up delay-1">
+
+        <!-- LEFT: Portfolio -->
+        <div class="phone phone-side-l">
+          <div class="phone-statusbar"><span>9:41</span><span style="letter-spacing:-1px;">●●●</span></div>
+          <div class="phone-pill"></div>
+          <div class="phone-body">
+            <div class="p-hdr">
+              <div class="p-hdr-btn back">‹</div>
+              <div class="p-hdr-title">Portfolio</div>
+              <div class="p-hdr-btn action">⚙</div>
+            </div>
+            <div class="p-card">
+              <div class="p-bal-label">Total Invested</div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;color:#E8C96A;margin-bottom:6px;">$35,000</div>
+              <div class="p-sec-lbl" style="margin-bottom:5px;">8-Week Performance</div>
+              <div class="p-bars">
+                <div class="p-bar" style="height:42%"></div>
+                <div class="p-bar" style="height:54%"></div>
+                <div class="p-bar" style="height:48%"></div>
+                <div class="p-bar" style="height:66%"></div>
+                <div class="p-bar" style="height:58%"></div>
+                <div class="p-bar" style="height:74%"></div>
+                <div class="p-bar" style="height:80%"></div>
+                <div class="p-bar" style="height:92%;background:linear-gradient(180deg,#00E5FF,rgba(0,229,255,0.2));"></div>
+              </div>
+            </div>
+            <div class="p-card">
+              <div class="p-sec-lbl">Active Cycle</div>
+              <div class="p-prog-row">
+                <span class="p-prog-lbl">Week 4 of 8</span>
+                <span class="p-prog-lbl" style="color:#C9A84C;">50%</span>
+              </div>
+              <div class="p-prog-track"><div class="p-prog-fill" style="width:50%"></div></div>
+              <div style="font-size:0.52rem;color:#10B981;font-weight:600;">● Cycle Active</div>
+            </div>
+            <div class="p-sec-lbl">Distributions</div>
+            <div class="p-act">
+              <div class="p-act-row">
+                <div class="p-act-ico" style="background:rgba(16,185,129,0.1);">💎</div>
+                <div class="p-act-inf"><div class="p-act-t">Week 3</div></div>
+                <div class="p-act-amt pos">+$1,180</div>
+              </div>
+              <div class="p-act-row">
+                <div class="p-act-ico" style="background:rgba(16,185,129,0.1);">💎</div>
+                <div class="p-act-inf"><div class="p-act-t">Week 2</div></div>
+                <div class="p-act-amt pos">+$1,260</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CENTER: Home Dashboard -->
+        <div class="phone phone-center">
+          <div class="phone-statusbar"><span>9:41</span><span style="letter-spacing:-1px;">●●●</span></div>
+          <div class="phone-pill"></div>
+          <div class="phone-body">
+            <div class="p-hdr">
+              <div>
+                <div style="font-size:0.46rem;color:rgba(255,255,255,0.3);">Hello,</div>
+                <div class="p-hdr-title">Investor</div>
+              </div>
+              <div class="p-hdr-btn notif">🔔</div>
+            </div>
+            <div class="p-balance-card">
+              <div class="p-bal-label">Total Portfolio</div>
+              <div class="p-bal-val">$48,260</div>
+              <div class="p-bal-change">↑ +12.4% this cycle</div>
+            </div>
+            <div class="p-stats2">
+              <div class="p-stat">
+                <div class="p-stat-lbl">Active Cycle</div>
+                <div class="p-stat-val cy">Week 4</div>
+              </div>
+              <div class="p-stat">
+                <div class="p-stat-lbl">Next Payout</div>
+                <div class="p-stat-val em">3d 12h</div>
+              </div>
+              <div class="p-stat">
+                <div class="p-stat-lbl">AI Status</div>
+                <div class="p-stat-val cy">Active</div>
+              </div>
+              <div class="p-stat">
+                <div class="p-stat-lbl">Risk Level</div>
+                <div class="p-stat-val gd">Low</div>
+              </div>
+            </div>
+            <div class="p-sec-lbl">This Week</div>
+            <div class="p-bars">
+              <div class="p-bar" style="height:38%"></div>
+              <div class="p-bar" style="height:52%"></div>
+              <div class="p-bar" style="height:44%"></div>
+              <div class="p-bar" style="height:68%"></div>
+              <div class="p-bar" style="height:60%"></div>
+              <div class="p-bar" style="height:82%"></div>
+              <div class="p-bar" style="height:94%"></div>
+            </div>
+            <div class="p-sec-lbl">Recent Activity</div>
+            <div class="p-act">
+              <div class="p-act-row">
+                <div class="p-act-ico" style="background:rgba(16,185,129,0.1);">💰</div>
+                <div class="p-act-inf">
+                  <div class="p-act-t">Distribution</div>
+                  <div class="p-act-tm">2 days ago</div>
+                </div>
+                <div class="p-act-amt pos">+$1,240</div>
+              </div>
+              <div class="p-act-row">
+                <div class="p-act-ico" style="background:rgba(0,229,255,0.08);">🤖</div>
+                <div class="p-act-inf">
+                  <div class="p-act-t">AI Report</div>
+                  <div class="p-act-tm">3 days ago</div>
+                </div>
+                <div class="p-act-amt cy">Done</div>
+              </div>
+            </div>
+          </div>
+          <div class="p-tabbar">
+            <span class="p-tabico on">🏠</span>
+            <span class="p-tabico">📊</span>
+            <span class="p-tabico">💰</span>
+            <span class="p-tabico">🔔</span>
+            <span class="p-tabico">👤</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: Wallet -->
+        <div class="phone phone-side-r">
+          <div class="phone-statusbar"><span>9:41</span><span style="letter-spacing:-1px;">●●●</span></div>
+          <div class="phone-pill"></div>
+          <div class="phone-body">
+            <div class="p-hdr">
+              <div class="p-hdr-btn back">‹</div>
+              <div class="p-hdr-title">Wallet</div>
+              <div class="p-hdr-btn action">+</div>
+            </div>
+            <div class="p-bals">
+              <div class="p-bal-label" style="margin-bottom:4px;">Available Balance</div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:#E8C96A;margin-bottom:3px;">$12,840</div>
+              <div style="font-size:0.5rem;color:rgba(255,255,255,0.3);">Updated just now</div>
+            </div>
+            <div class="p-btn-row">
+              <div class="p-btn prim">Deposit</div>
+              <div class="p-btn outl">Withdraw</div>
+            </div>
+            <div class="p-sec-lbl">Transactions</div>
+            <div class="p-act">
+              <div class="p-act-row">
+                <div class="p-act-ico" style="background:rgba(16,185,129,0.1);color:#10B981;font-weight:700;">↓</div>
+                <div class="p-act-inf">
+                  <div class="p-act-t">Distribution</div>
+                  <div class="p-act-tm">2 days ago</div>
+                </div>
+                <div class="p-act-amt pos">+$1,240</div>
+              </div>
+              <div class="p-act-row">
+                <div class="p-act-ico" style="background:rgba(255,80,80,0.08);color:#FF6B6B;font-weight:700;">↑</div>
+                <div class="p-act-inf">
+                  <div class="p-act-t">Investment</div>
+                  <div class="p-act-tm">1 week ago</div>
+                </div>
+                <div class="p-act-amt" style="color:#FF6B6B;">-$5,000</div>
+              </div>
+              <div class="p-act-row">
+                <div class="p-act-ico" style="background:rgba(16,185,129,0.1);color:#10B981;font-weight:700;">↓</div>
+                <div class="p-act-inf">
+                  <div class="p-act-t">Deposit</div>
+                  <div class="p-act-tm">2 weeks ago</div>
+                </div>
+                <div class="p-act-amt pos">+$15,000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /phones-showcase -->
+
+      <!-- Screen labels -->
+      <div class="phones-labels fade-up delay-2">
+        <div class="phone-label"><div class="phone-label-dot"></div><span data-i18n="exp.lbl1">Portfolio</span></div>
+        <div class="phone-label active"><div class="phone-label-dot"></div><span data-i18n="exp.lbl2">Home Dashboard</span></div>
+        <div class="phone-label"><div class="phone-label-dot"></div><span data-i18n="exp.lbl3">Wallet</span></div>
+        <div class="phone-label"><div class="phone-label-dot"></div><span data-i18n="exp.lbl4">Notifications</span></div>
+        <div class="phone-label"><div class="phone-label-dot"></div><span data-i18n="exp.lbl5">KYC Verification</span></div>
+      </div>
+
+      </div><!-- /exp-phones-area -->
+
+      <!-- CONVERSION BLOCK — integrated CTA -->
+      <div class="exp-cta-block fade-up">
+        <div class="section-label" style="margin:0 auto 24px;" data-i18n="cta.label">Get Started</div>
+        <h2 data-i18n-html="cta.title">Join the Next Generation<br>of <span class="text-gradient">Investing</span></h2>
+        <div class="divider"></div>
+        <p data-i18n="cta.sub">Become part of a growing ecosystem designed for structured investing and AI-powered operational management.</p>
+        <div class="hero-ctas" style="justify-content:center; margin-top:36px;">
+          <a href="#" class="btn btn-primary" style="font-size:1rem; padding:17px 44px;">
+            <span data-i18n="cta.btn1">Get Started</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </a>
+          <a href="#" class="btn btn-ghost" style="font-size:1rem; padding:17px 44px;" data-i18n="cta.btn2">Download App</a>
+        </div>
+        <div class="cta-trust-row">
+          <div class="cta-trust-item"><span>🔒</span> <span data-i18n="cta.t1">Secure Registration</span></div>
+          <div class="cta-trust-item"><span>✓</span> <span data-i18n="cta.t2">KYC Protected</span></div>
+          <div class="cta-trust-item"><span>🤖</span> <span data-i18n="cta.t3">AI-Monitored</span></div>
+          <div class="cta-trust-item"><span>💎</span> <span data-i18n="cta.t4">Weekly Distributions</span></div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- ================================
+       FOOTER
+  ================================= -->
+  <footer>
+    <div class="container">
+
+
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon"><img src="Novex_logo.png" alt="NOVEX" /></div>
+            <span class="footer-logo-text">NOVEX</span>
+          </div>
+          <p class="footer-tagline" data-i18n-html="footer.tagline">New Generation For Investing.<br>A modern investment ecosystem powered by AI-driven operational intelligence and structured investment cycles.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="fc1h">Company</h4>
+          <ul>
+            <li><a href="#" data-i18n="fc1l1">About NOVEX</a></li>
+            <li><a href="#" data-i18n="fc1l2">How It Works</a></li>
+            <li><a href="#ai-engine" data-i18n="fc1l3">AI Engine</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="fc2h">Support</h4>
+          <ul>
+            <li><a href="#" data-i18n="fc2l2">Contact Support</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#" data-i18n="fc2l4">Getting Started</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="fc4h">Contact</h4>
+          <div class="footer-contact-btns">
+            <a href="#" class="footer-contact-btn">
+              <div class="footer-contact-icon" style="background:rgba(37,211,102,0.1); border-color:rgba(37,211,102,0.2);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </div>
+              <span data-i18n="fc4l1">WhatsApp Support</span>
+            </a>
+            <a href="#" class="footer-contact-btn">
+              <div class="footer-contact-icon" style="background:var(--gold-dim); border-color:var(--border);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <span data-i18n="fc4l2">Email Us</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-disclaimer">
+        <p data-i18n-html="footer.disclaimer"><strong style="color:var(--text-secondary);">Risk Disclosure:</strong> Investing involves risk. The value of investments can go down as well as up. Past performance is not indicative of future results. NOVEX does not guarantee any specific return on investment. Please read all relevant documentation before participating in any investment cycle. This website is for informational purposes only and does not constitute financial advice.</p>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copyright" data-i18n="footer.copy">© 2025 NOVEX. All rights reserved. New Generation For Investing.</div>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================
+       JAVASCRIPT
+  ================================= -->
+  <script>
+    /* ===== TRANSLATIONS ===== */
+    const T = {
+      en: {
+        /* nav */
+        'nav.app':'The App','nav.works':'How It Works','nav.why':'Why NOVEX','nav.start':'Get Started',
+        /* hero */
+        'hero.badge':'Structured Investment Platform',
+        'hero.h1a':'Your Investment,','hero.h1b':'Structured','hero.h1c':'& AI-Monitored.',
+        'hero.sub':'Experience a structured investment ecosystem designed to combine operational intelligence, transparency, and long-term growth.',
+        'hero.cta1':'Start Investing','hero.cta2':'Learn More',
+        'hero.stat1':'Operational Intelligence','hero.stat2':'Structured Cycles','hero.stat3':'Monitoring',
+        /* trust */
+        'trust.1t':'AI-Powered Monitoring',
+        'trust.1d':'Continuous operational intelligence ensures every investment cycle is tracked and analyzed in real time.',
+        'trust.2t':'Structured Investment Cycles',
+        'trust.2d':'Disciplined cycle-based management removes emotional decision-making and brings institutional-grade discipline.',
+        'trust.3t':'Verified Investor Ecosystem',
+        'trust.3d':'Every participant undergoes identity verification, building a trusted community of qualified investors.',
+        'trust.4t':'Operational Distribution',
+        'trust.4d':'Transparent profit distribution protocols with clearly defined windows and verifiable transaction records.',
+        /* how */
+        'how.label':'Process',
+        'how.title':'How <span class="text-gradient">NOVEX</span> Works',
+        'how.sub':'A transparent, four-step journey from onboarding to profit distribution — designed for clarity and confidence.',
+        'step.1t':'Join an Investment Cycle',
+        'step.1d':'Complete KYC verification, fund your account, and select your preferred investment cycle to get started.',
+        'step.2t':'Funds Enter Structured Management',
+        'step.2d':'Your capital enters a structured management protocol governed by predefined operational parameters.',
+        'step.3t':'AI Monitoring & Analysis',
+        'step.3d':'Our AI engine continuously monitors performance, operational health, and cycle progression across all positions.',
+        'step.4t':'Profit Distribution',
+        'step.4d':'Returns are distributed to investor wallets on scheduled windows, with full transparency and verifiable records.',
+        /* why */
+        'why.label':'Value Proposition',
+        'why.title':'Why Choose <span class="text-gradient">NOVEX</span>',
+        'why.sub':'Every component of NOVEX is engineered with one goal: providing investors with a trustworthy, transparent, and technologically advanced platform.',
+        'f1t':'AI Operational Intelligence','f1d':'Real-time operational analysis powered by advanced AI models that continuously optimize cycle performance.','f1g':'Core Technology',
+        'f2t':'Structured Cycle Management','f2d':'Investment cycles follow disciplined, predefined operational frameworks that eliminate arbitrary decision-making.','f2g':'Framework',
+        'f3t':'Performance Monitoring','f3d':'Live dashboards give every investor real-time visibility into portfolio performance, cycle status, and distribution timelines.','f3g':'Transparency',
+        'f4t':'Investor Dashboard','f4d':'A clean, institutional-grade interface designed for both first-time investors and experienced portfolio managers.','f4g':'Platform',
+        'f5t':'Secure Verification System','f5d':'Multi-layer KYC and OTP verification ensures every account is protected and every investor is authenticated.','f5g':'Security',
+        'f6t':'Weekly Distribution Window','f6d':'Scheduled profit distributions arrive with precision timing, giving investors predictable and transparent return cycles.','f6g':'Returns',
+        'f7t':'Investor Data Protection','f7d':'Enterprise-grade data security protocols ensure personal and financial information is always protected.','f7g':'Privacy',
+        'f8t':'Premium Support Experience','f8d':'Dedicated support teams available to assist investors at every stage — from onboarding to withdrawal queries.','f8g':'Support',
+        'f9t':'Long-Term Growth Focus','f9d':'NOVEX is engineered for sustainable growth — not short-term speculation — aligned with institutional investment principles.','f9g':'Strategy',
+        /* ai */
+        'ai.label':'Technology',
+        'ai.title':'The Intelligence<br><span class="text-gradient-cyan">Behind NOVEX</span>',
+        'ai.sub':'The NOVEX AI Engine operates as the operational backbone of every investment cycle — monitoring, analyzing, and optimizing in real time.',
+        'ai.p1t':'Continuous Monitoring','ai.p1d':'The AI system maintains 24/7 surveillance of all active investment cycles, tracking operational metrics and performance signals.',
+        'ai.p2t':'Operational Analysis','ai.p2d':'Advanced pattern recognition and data analysis identify opportunities and anomalies across the investment ecosystem.',
+        'ai.p3t':'Cycle Optimization','ai.p3d':'Machine learning models continuously refine cycle parameters to improve performance consistency and operational health.',
+        'ai.p4t':'Operational Oversight','ai.p4d':'Automated safeguards and threshold-based alerts ensure the platform maintains integrity across all investor positions.',
+        /* experience */
+        'exp.label':'Dashboard',
+        'exp.title':'Your <span class="text-gradient">Investor Experience</span>',
+        'exp.sub':'A premium, intuitive interface that puts you in control — with every data point you need, exactly when you need it.',
+        'exp.tab1':'Portfolio','exp.tab2':'AI Monitor','exp.tab3':'Wallet','exp.tab4':'Distributions',
+        /* security */
+        'sec.label':'Infrastructure',
+        'sec.title':'Built with Security<br><span class="text-gradient">in Mind</span>',
+        'sec.sub':'Every layer of NOVEX is engineered with investor protection at its core — from identity verification to account security and data encryption.',
+        'sec.f1t':'KYC Verification','sec.f1d':'All investors undergo mandatory identity verification before gaining access to investment cycles.',
+        'sec.f2t':'OTP Authentication','sec.f2d':'One-time passwords add a critical second layer of security to every login and transaction.',
+        'sec.f3t':'Secure Account Protection','sec.f3d':'Advanced account protection protocols prevent unauthorized access and suspicious activity.',
+        'sec.f4t':'Operational Monitoring','sec.f4d':'Continuous system monitoring detects and responds to irregularities before they impact investors.',
+        'sec.f5t':'Investor Data Protection','sec.f5d':'End-to-end encryption and strict data policies keep all personal and financial information confidential.',
+        /* faq */
+        'faq.title':'Frequently Asked <span class="text-gradient">Questions</span>',
+        'faq.sub':'Clear answers to the questions investors ask most. If you need more detail, our support team is available 24/7.',
+        'faq.q1':'How does NOVEX work?',
+        'faq.a1':'NOVEX operates as a structured investment ecosystem. Investors join defined investment cycles, contribute capital, and participate in distributions based on operational results. An AI-powered monitoring engine oversees all cycle activity, ensuring transparency and operational consistency throughout the process.',
+        'faq.q2':'How are investment cycles managed?',
+        'faq.a2':'Investment cycles follow strict operational frameworks with predefined durations, parameters, and distribution schedules. Each cycle is governed by established protocols that remove subjective decision-making and ensure every investor is treated consistently within the same cycle conditions.',
+        'faq.q3':'How does profit distribution work?',
+        'faq.a3':'Profit distributions occur on scheduled weekly windows. Once a distribution event is triggered, funds are automatically allocated to investor wallets according to their participation level within the cycle. All distributions are recorded and visible in the investor dashboard.',
+        'faq.q4':'When can withdrawals be requested?',
+        'faq.a4':'Withdrawal requests can be initiated through your investor dashboard during designated withdrawal windows. The availability of funds depends on your current cycle status and the terms of your investment participation. Full details are provided upon account registration and cycle enrollment.',
+        'faq.q5':'How is account security handled?',
+        'faq.a5':'NOVEX employs multiple security layers including email verification, OTP-based two-factor authentication, and continuous AI monitoring for suspicious activity. All account actions require authentication, and investor data is protected with enterprise-grade encryption protocols.',
+        'faq.q6':'How does KYC verification work?',
+        'faq.a6':'KYC (Know Your Customer) verification is required for all NOVEX investors before accessing investment cycles. The process involves submitting a valid government-issued identity document and completing a brief verification check. This process protects all participants and ensures a trusted investor community.',
+        /* cta */
+        'cta.label':'Get Started',
+        'cta.title':'Join the Next Generation<br>of <span class="text-gradient">Investing</span>',
+        'cta.sub':'Become part of a growing ecosystem designed for structured investing and AI-powered operational management.',
+        'cta.btn1':'Get Started','cta.btn2':'Download App',
+        'cta.t1':'Secure Registration','cta.t2':'KYC Protected','cta.t3':'AI-Monitored','cta.t4':'Weekly Distributions',
+        /* footer */
+        'footer.tagline':'New Generation For Investing.<br>A modern investment ecosystem powered by AI-driven operational intelligence and structured investment cycles.',
+        'fc1h':'Company','fc1l1':'About NOVEX','fc1l2':'How It Works','fc1l3':'AI Engine','fc1l4':'Security',
+        'fc2h':'Support','fc2l1':'Help Center','fc2l2':'Contact Support','fc2l4':'Getting Started',
+        'fc4h':'Contact','fc4l1':'WhatsApp Support','fc4l2':'Email Us',
+        'footer.disclaimer':'<strong style="color:var(--text-secondary);">Risk Disclosure:</strong> Investing involves risk. The value of investments can go down as well as up. Past performance is not indicative of future results. NOVEX does not guarantee any specific return on investment. Please read all relevant documentation before participating in any investment cycle. This website is for informational purposes only and does not constitute financial advice.',
+        'footer.copy':'© 2025 NOVEX. All rights reserved. New Generation For Investing.',
+        /* hero updated */
+        'hero.sub':'Join investment cycles, track your portfolio in real time, and receive weekly distributions — all from one clean, secure dashboard.',
+        /* hero trust row */
+        'htr.1':'AI Monitoring','htr.2':'KYC Verification','htr.3':'Structured Distribution','htr.4':'Investor Dashboard',
+        /* why investors */
+        'wi.label':'For Investors',
+        'wi.title':'Why Investors Choose <span class="text-gradient">NOVEX</span>',
+        'wi.sub':'Every feature is built around the investor\'s perspective — clarity, transparency, and a platform that actually works.',
+        'wi.c1t':'Transparent Dashboard','wi.c1d':'Track your portfolio, active investment cycles, and distribution history from a single clear interface.',
+        'wi.c2t':'AI-Assisted Monitoring','wi.c2d':'Continuous operational oversight designed to improve visibility, consistency, and cycle performance.',
+        'wi.c3t':'Secure Account Verification','wi.c3d':'KYC identity checks, OTP authentication, and multi-layer account protection built into every account.',
+        'wi.c4t':'Structured Investment Cycles','wi.c4d':'Clear participation periods with organized cycle management — no ambiguity, no surprises.',
+        'wi.c5t':'Weekly Withdrawal Window','wi.c5d':'Predictable withdrawal scheduling so you always know when your funds become accessible.',
+        'wi.c6t':'Dedicated Support','wi.c6d':'Access to assistance throughout your investment journey — onboarding, questions, or guidance.',
+        /* trust badges */
+        'tb.1':'KYC Verification','tb.2':'OTP Authentication','tb.3':'Portfolio Monitoring',
+        'tb.4':'Distribution Tracking','tb.5':'Customer Support','tb.6':'Activity Notifications',
+        /* ai engine refined */
+        'ai.title':'Technology Designed<br><span class="text-gradient-cyan">for Investors</span>',
+        'ai.sub':'NOVEX uses AI-powered tooling to give investors clear visibility into their portfolio, cycles, and distributions — so you always know what is happening with your investment.',
+        'ai.p1t':'Portfolio Visibility','ai.p1d':'Real-time tracking of your cycles, balances, and distributions.',
+        'ai.p2t':'Cycle Monitoring','ai.p2d':'Continuous oversight of every active investment cycle.',
+        'ai.p3t':'Auto Distribution','ai.p3d':'Distributions processed automatically on schedule.',
+        'ai.p4t':'Platform Integrity','ai.p4d':'Automated safeguards keep investor funds handled correctly.',
+        /* experience (phone) */
+        'exp.label':'The Platform',
+        'exp.title':'The <span class="text-gradient">NOVEX App</span>',
+        'exp.sub':'Your portfolio, investment cycles, wallet, and notifications — all accessible from a single, clean mobile interface.',
+        'exp.lbl1':'Portfolio','exp.lbl2':'Home Dashboard','exp.lbl3':'Wallet','exp.lbl4':'Notifications','exp.lbl5':'KYC Verification',
+        /* behind novex */
+        'bn.label':'Our Foundation',
+        'bn.title':'Built Around <span class="text-gradient">Modern Investing</span>',
+        'bn.p1':'NOVEX was designed to address a straightforward challenge: making structured investment management transparent, accessible, and technology-driven.',
+        'bn.p2':'The platform combines disciplined investment cycle management with a user-focused experience built for clarity and operational efficiency. Every feature is designed around the investor\'s perspective — from the moment you join through every distribution cycle.',
+        'bn.pr1t':'Transparency First','bn.pr1d':'Every cycle, distribution, and performance metric is visible from your dashboard.',
+        'bn.pr2t':'Investor-Centric Design','bn.pr2d':'The platform is built from the investor\'s perspective — clear, accessible, and reliable.',
+        'bn.pr3t':'Structured Over Speculative','bn.pr3d':'Disciplined cycle frameworks replace impulse with consistency and predictability.',
+        'bn.pr4t':'Technology as a Tool','bn.pr4d':'AI and automation serve the investment process — not the other way around.',
+        'bn.b1t':'Purpose-Built Platform','bn.b1d':'NOVEX was built specifically for structured investment management — every feature serves a clear purpose for the investor.',
+        'bn.b2t':'Clear Communication','bn.b2d':'Investors receive timely notifications for every cycle update, distribution event, and account activity.',
+        'bn.b3t':'Long-Term Perspective','bn.b3d':'The platform is designed for sustained, cycle-based participation — not short-term speculation.',
+        'bn.b4t':'Accessible from Anywhere','bn.b4d':'The NOVEX mobile app gives investors full access to their portfolio, wallet, and distributions on any device.',
+        /* footer support */
+        'fsb.title':'Need Assistance?','fsb.sub':'Our support team is available to help you at every step.',
+        'fsb.l1':'WhatsApp Support','fsb.l2':'Email Support','fsb.l3':'Help Center','fsb.l4':'FAQ','fsb.l5':'Mon–Sat, 9AM–6PM',
+      },
+
+      id: {
+        /* nav */
+        'nav.app':'Aplikasi','nav.works':'Cara Kerja','nav.why':'Mengapa NOVEX','nav.start':'Mulai Sekarang',
+        /* hero */
+        'hero.badge':'Platform Investasi Terstruktur',
+        'hero.h1a':'Investasi Anda,','hero.h1b':'Terstruktur','hero.h1c':'& Dipantau AI.',
+        'hero.sub':'Rasakan ekosistem investasi terstruktur yang menggabungkan kecerdasan operasional, transparansi, dan pertumbuhan jangka panjang.',
+        'hero.cta1':'Mulai Berinvestasi','hero.cta2':'Pelajari Lebih Lanjut',
+        'hero.stat1':'Kecerdasan Operasional','hero.stat2':'Siklus Terstruktur','hero.stat3':'Pemantauan',
+        /* trust */
+        'trust.1t':'Pemantauan Bertenaga AI',
+        'trust.1d':'Kecerdasan operasional berkelanjutan memastikan setiap siklus investasi dipantau dan dianalisis secara real time.',
+        'trust.2t':'Siklus Investasi Terstruktur',
+        'trust.2d':'Manajemen berbasis siklus yang disiplin menghilangkan keputusan emosional dan menghadirkan disiplin tingkat institusional.',
+        'trust.3t':'Ekosistem Investor Terverifikasi',
+        'trust.3d':'Setiap peserta menjalani verifikasi identitas, membangun komunitas investor terpercaya yang berkualitas.',
+        'trust.4t':'Distribusi Operasional',
+        'trust.4d':'Protokol distribusi keuntungan yang transparan dengan jendela yang jelas dan catatan transaksi yang dapat diverifikasi.',
+        /* how */
+        'how.label':'Proses',
+        'how.title':'Cara Kerja <span class="text-gradient">NOVEX</span>',
+        'how.sub':'Perjalanan empat langkah yang transparan — dari pendaftaran hingga distribusi keuntungan, dirancang untuk kejelasan dan kepercayaan.',
+        'step.1t':'Bergabung dengan Siklus Investasi',
+        'step.1d':'Selesaikan verifikasi KYC, danai akun Anda, dan pilih siklus investasi yang diinginkan untuk memulai.',
+        'step.2t':'Dana Masuk Manajemen Terstruktur',
+        'step.2d':'Modal Anda memasuki protokol manajemen terstruktur yang diatur oleh parameter operasional yang telah ditetapkan.',
+        'step.3t':'Pemantauan & Analisis AI',
+        'step.3d':'Mesin AI kami terus memantau kinerja, kesehatan operasional, dan perkembangan siklus di semua posisi.',
+        'step.4t':'Distribusi Keuntungan',
+        'step.4d':'Hasil didistribusikan ke dompet investor pada jendela terjadwal, dengan transparansi penuh dan catatan yang dapat diverifikasi.',
+        /* why */
+        'why.label':'Proposisi Nilai',
+        'why.title':'Mengapa Memilih <span class="text-gradient">NOVEX</span>',
+        'why.sub':'Setiap komponen NOVEX direkayasa dengan satu tujuan: memberikan investor platform yang terpercaya, transparan, dan canggih secara teknologi.',
+        'f1t':'Kecerdasan Operasional AI','f1d':'Analisis operasional real-time yang didukung model AI canggih yang terus mengoptimalkan kinerja siklus.','f1g':'Teknologi Inti',
+        'f2t':'Manajemen Siklus Terstruktur','f2d':'Siklus investasi mengikuti kerangka operasional yang disiplin dan menghilangkan pengambilan keputusan sewenang-wenang.','f2g':'Kerangka Kerja',
+        'f3t':'Pemantauan Kinerja','f3d':'Dashboard langsung memberi setiap investor visibilitas real-time ke kinerja portofolio, status siklus, dan jadwal distribusi.','f3g':'Transparansi',
+        'f4t':'Dashboard Investor','f4d':'Antarmuka bersih berkelas institusional yang dirancang untuk investor pemula maupun manajer portofolio berpengalaman.','f4g':'Platform',
+        'f5t':'Sistem Verifikasi Aman','f5d':'Verifikasi KYC dan OTP berlapis memastikan setiap akun terlindungi dan setiap investor terautentikasi.','f5g':'Keamanan',
+        'f6t':'Jendela Distribusi Mingguan','f6d':'Distribusi keuntungan terjadwal datang dengan waktu yang tepat, memberi investor siklus pengembalian yang dapat diprediksi.','f6g':'Hasil',
+        'f7t':'Perlindungan Data Investor','f7d':'Protokol keamanan data kelas enterprise memastikan informasi pribadi dan keuangan selalu terlindungi.','f7g':'Privasi',
+        'f8t':'Pengalaman Dukungan Premium','f8d':'Tim dukungan khusus tersedia membantu investor di setiap tahap — dari pendaftaran hingga pertanyaan penarikan.','f8g':'Dukungan',
+        'f9t':'Fokus Pertumbuhan Jangka Panjang','f9d':'NOVEX direkayasa untuk pertumbuhan berkelanjutan — bukan spekulasi jangka pendek — selaras dengan prinsip investasi institusional.','f9g':'Strategi',
+        /* ai */
+        'ai.label':'Teknologi',
+        'ai.title':'Kecerdasan di Balik<br><span class="text-gradient-cyan">NOVEX</span>',
+        'ai.sub':'Mesin AI NOVEX beroperasi sebagai tulang punggung operasional setiap siklus investasi — memantau, menganalisis, dan mengoptimalkan secara real time.',
+        'ai.p1t':'Pemantauan Berkelanjutan','ai.p1d':'Sistem AI mempertahankan pengawasan 24/7 atas semua siklus aktif, melacak metrik operasional dan sinyal kinerja.',
+        'ai.p2t':'Analisis Operasional','ai.p2d':'Pengenalan pola canggih dan analisis data mengidentifikasi peluang dan anomali di seluruh ekosistem investasi.',
+        'ai.p3t':'Optimasi Siklus','ai.p3d':'Model pembelajaran mesin terus menyempurnakan parameter siklus untuk meningkatkan konsistensi kinerja dan kesehatan operasional.',
+        'ai.p4t':'Pengawasan Operasional','ai.p4d':'Pengaman otomatis dan peringatan berbasis ambang memastikan platform menjaga integritas di semua posisi investor.',
+        /* experience */
+        'exp.label':'Dashboard',
+        'exp.title':'Pengalaman <span class="text-gradient">Investor Anda</span>',
+        'exp.sub':'Antarmuka premium dan intuitif yang memberi Anda kendali penuh — dengan setiap data yang Anda butuhkan, tepat saat Anda membutuhkannya.',
+        'exp.tab1':'Portofolio','exp.tab2':'Monitor AI','exp.tab3':'Dompet','exp.tab4':'Distribusi',
+        /* security */
+        'sec.label':'Infrastruktur',
+        'sec.title':'Dibangun dengan<br><span class="text-gradient">Keamanan sebagai Prioritas</span>',
+        'sec.sub':'Setiap lapisan NOVEX direkayasa dengan perlindungan investor sebagai inti — dari verifikasi identitas hingga keamanan akun dan enkripsi data.',
+        'sec.f1t':'Verifikasi KYC','sec.f1d':'Semua investor menjalani verifikasi identitas wajib sebelum mendapatkan akses ke siklus investasi.',
+        'sec.f2t':'Autentikasi OTP','sec.f2d':'Kata sandi sekali pakai menambahkan lapisan keamanan kedua yang kritis pada setiap login dan transaksi.',
+        'sec.f3t':'Perlindungan Akun Aman','sec.f3d':'Protokol perlindungan akun canggih mencegah akses tidak sah dan aktivitas mencurigakan.',
+        'sec.f4t':'Pemantauan Operasional','sec.f4d':'Pemantauan sistem berkelanjutan mendeteksi dan merespons ketidakberaturan sebelum berdampak pada investor.',
+        'sec.f5t':'Perlindungan Data Investor','sec.f5d':'Enkripsi end-to-end dan kebijakan data ketat menjaga semua informasi pribadi dan keuangan tetap rahasia.',
+        /* faq */
+        'faq.title':'Pertanyaan yang Sering <span class="text-gradient">Diajukan</span>',
+        'faq.sub':'Jawaban jelas atas pertanyaan yang paling sering diajukan investor. Jika butuh detail lebih lanjut, tim dukungan kami tersedia 24/7.',
+        'faq.q1':'Bagaimana cara kerja NOVEX?',
+        'faq.a1':'NOVEX beroperasi sebagai ekosistem investasi terstruktur. Investor bergabung dengan siklus investasi yang telah ditetapkan, berkontribusi modal, dan berpartisipasi dalam distribusi berdasarkan hasil operasional. Mesin pemantauan bertenaga AI mengawasi semua aktivitas siklus, memastikan transparansi dan konsistensi operasional sepanjang proses.',
+        'faq.q2':'Bagaimana siklus investasi dikelola?',
+        'faq.a2':'Siklus investasi mengikuti kerangka operasional yang ketat dengan durasi, parameter, dan jadwal distribusi yang telah ditetapkan. Setiap siklus diatur oleh protokol yang menghilangkan pengambilan keputusan subjektif dan memastikan setiap investor diperlakukan secara konsisten dalam kondisi siklus yang sama.',
+        'faq.q3':'Bagaimana distribusi keuntungan bekerja?',
+        'faq.a3':'Distribusi keuntungan terjadi pada jendela mingguan yang terjadwal. Setelah peristiwa distribusi dipicu, dana secara otomatis dialokasikan ke dompet investor sesuai tingkat partisipasi mereka dalam siklus. Semua distribusi dicatat dan terlihat di dashboard investor.',
+        'faq.q4':'Kapan penarikan dapat diminta?',
+        'faq.a4':'Permintaan penarikan dapat dimulai melalui dashboard investor selama jendela penarikan yang ditetapkan. Ketersediaan dana bergantung pada status siklus saat ini dan ketentuan partisipasi investasi Anda. Detail lengkap diberikan saat registrasi akun dan pendaftaran siklus.',
+        'faq.q5':'Bagaimana keamanan akun ditangani?',
+        'faq.a5':'NOVEX menggunakan beberapa lapisan keamanan termasuk verifikasi email, autentikasi dua faktor berbasis OTP, dan pemantauan AI berkelanjutan untuk aktivitas mencurigakan. Semua tindakan akun memerlukan autentikasi, dan data investor dilindungi dengan protokol enkripsi kelas enterprise.',
+        'faq.q6':'Bagaimana cara kerja verifikasi KYC?',
+        'faq.a6':'Verifikasi KYC (Kenali Pelanggan Anda) diperlukan untuk semua investor NOVEX sebelum mengakses siklus investasi. Prosesnya melibatkan pengiriman dokumen identitas yang dikeluarkan pemerintah yang valid dan menyelesaikan pemeriksaan verifikasi singkat. Proses ini melindungi semua peserta dan memastikan komunitas investor yang terpercaya.',
+        /* cta */
+        'cta.label':'Mulai Sekarang',
+        'cta.title':'Bergabunglah dengan<br>Generasi <span class="text-gradient">Investasi Berikutnya</span>',
+        'cta.sub':'Jadilah bagian dari ekosistem yang berkembang yang dirancang untuk investasi terstruktur dan manajemen operasional bertenaga AI.',
+        'cta.btn1':'Mulai Sekarang','cta.btn2':'Download App',
+        'cta.t1':'Registrasi Aman','cta.t2':'Dilindungi KYC','cta.t3':'Dipantau AI','cta.t4':'Distribusi Mingguan',
+        /* footer */
+        'footer.tagline':'Generasi Baru Untuk Berinvestasi.<br>Ekosistem investasi modern yang didukung kecerdasan operasional berbasis AI dan siklus investasi terstruktur.',
+        'fc1h':'Perusahaan','fc1l1':'Tentang NOVEX','fc1l2':'Cara Kerja','fc1l3':'Mesin AI','fc1l4':'Keamanan',
+        'fc2h':'Dukungan','fc2l1':'Pusat Bantuan','fc2l2':'Hubungi Dukungan','fc2l4':'Memulai',
+        'fc4h':'Kontak','fc4l1':'WhatsApp Support','fc4l2':'Email Kami',
+        'footer.disclaimer':'<strong style="color:var(--text-secondary);">Pengungkapan Risiko:</strong> Berinvestasi mengandung risiko. Nilai investasi dapat naik maupun turun. Kinerja masa lalu bukan indikasi hasil di masa depan. NOVEX tidak menjamin pengembalian investasi tertentu. Harap baca semua dokumentasi yang relevan sebelum berpartisipasi dalam siklus investasi apa pun. Situs web ini hanya untuk tujuan informasi dan bukan merupakan saran keuangan.',
+        'footer.copy':'© 2025 NOVEX. Hak cipta dilindungi. Generasi Baru Untuk Berinvestasi.',
+        /* hero updated */
+        'hero.sub':'Bergabung dengan siklus investasi, pantau portofolio secara real time, dan terima distribusi mingguan — semua dari satu dashboard yang bersih dan aman.',
+        /* hero trust row */
+        'htr.1':'Pemantauan AI','htr.2':'Verifikasi KYC','htr.3':'Distribusi Terstruktur','htr.4':'Dashboard Investor',
+        /* why investors */
+        'wi.label':'Untuk Investor',
+        'wi.title':'Mengapa Investor Memilih <span class="text-gradient">NOVEX</span>',
+        'wi.sub':'Setiap fitur dibangun dari sudut pandang investor — kejelasan, transparansi, dan platform yang benar-benar berfungsi.',
+        'wi.c1t':'Dashboard Transparan','wi.c1d':'Pantau portofolio, siklus investasi aktif, dan riwayat distribusi dari satu antarmuka yang jelas.',
+        'wi.c2t':'Pemantauan Berbantuan AI','wi.c2d':'Pengawasan operasional berkelanjutan yang dirancang untuk meningkatkan visibilitas, konsistensi, dan kinerja siklus.',
+        'wi.c3t':'Verifikasi Akun Aman','wi.c3d':'Pemeriksaan identitas KYC, autentikasi OTP, dan perlindungan akun berlapis yang tertanam di setiap akun.',
+        'wi.c4t':'Siklus Investasi Terstruktur','wi.c4d':'Periode partisipasi yang jelas dengan manajemen siklus yang terorganisir — tidak ada ambiguitas, tidak ada kejutan.',
+        'wi.c5t':'Jendela Penarikan Mingguan','wi.c5d':'Jadwal penarikan yang dapat diprediksi sehingga Anda selalu tahu kapan dana Anda dapat diakses.',
+        'wi.c6t':'Dukungan Khusus','wi.c6d':'Akses bantuan sepanjang perjalanan investasi Anda — pendaftaran, pertanyaan, atau panduan.',
+        /* trust badges */
+        'tb.1':'Verifikasi KYC','tb.2':'Autentikasi OTP','tb.3':'Pemantauan Portofolio',
+        'tb.4':'Pelacakan Distribusi','tb.5':'Dukungan Pelanggan','tb.6':'Notifikasi Aktivitas',
+        /* ai engine refined */
+        'ai.title':'Teknologi yang Dirancang<br><span class="text-gradient-cyan">untuk Investor</span>',
+        'ai.sub':'NOVEX menggunakan alat bertenaga AI untuk memberi investor visibilitas yang jelas ke portofolio, siklus, dan distribusi mereka — sehingga Anda selalu tahu apa yang terjadi dengan investasi Anda.',
+        'ai.p1t':'Visibilitas Portofolio','ai.p1d':'Pelacakan real-time siklus, saldo, dan distribusi Anda.',
+        'ai.p2t':'Pemantauan Siklus','ai.p2d':'Pengawasan berkelanjutan atas setiap siklus investasi aktif.',
+        'ai.p3t':'Distribusi Otomatis','ai.p3d':'Distribusi diproses otomatis sesuai jadwal.',
+        'ai.p4t':'Integritas Platform','ai.p4d':'Pengaman otomatis menjaga dana investor ditangani dengan benar.',
+        /* experience (phone) */
+        'exp.label':'Platform',
+        'exp.title':'Aplikasi <span class="text-gradient">NOVEX</span>',
+        'exp.sub':'Portofolio, siklus investasi, dompet, dan notifikasi Anda — semua dapat diakses dari antarmuka mobile yang bersih dan sederhana.',
+        'exp.lbl1':'Portofolio','exp.lbl2':'Beranda','exp.lbl3':'Dompet','exp.lbl4':'Notifikasi','exp.lbl5':'Verifikasi KYC',
+        /* behind novex */
+        'bn.label':'Fondasi Kami',
+        'bn.title':'Dibangun di Sekitar <span class="text-gradient">Prinsip Investasi Modern</span>',
+        'bn.p1':'NOVEX dirancang untuk mengatasi tantangan yang sederhana: membuat manajemen investasi terstruktur menjadi transparan, mudah diakses, dan berbasis teknologi.',
+        'bn.p2':'Platform ini menggabungkan manajemen siklus investasi yang disiplin dengan pengalaman yang berfokus pada pengguna, dibangun untuk kejelasan dan efisiensi operasional. Setiap fitur dirancang dari sudut pandang investor — dari saat Anda bergabung hingga setiap siklus distribusi.',
+        'bn.pr1t':'Transparansi Utama','bn.pr1d':'Setiap siklus, distribusi, dan metrik kinerja terlihat dari dashboard Anda.',
+        'bn.pr2t':'Desain Berpusat pada Investor','bn.pr2d':'Platform dibangun dari sudut pandang investor — jelas, mudah diakses, dan andal.',
+        'bn.pr3t':'Terstruktur, Bukan Spekulatif','bn.pr3d':'Kerangka siklus yang disiplin menggantikan impuls dengan konsistensi dan prediktabilitas.',
+        'bn.pr4t':'Teknologi sebagai Alat','bn.pr4d':'AI dan otomatisasi melayani proses investasi — bukan sebaliknya.',
+        'bn.b1t':'Platform Bertujuan Khusus','bn.b1d':'NOVEX dibangun khusus untuk manajemen investasi terstruktur — setiap fitur melayani tujuan yang jelas bagi investor.',
+        'bn.b2t':'Komunikasi yang Jelas','bn.b2d':'Investor menerima notifikasi tepat waktu untuk setiap pembaruan siklus, peristiwa distribusi, dan aktivitas akun.',
+        'bn.b3t':'Perspektif Jangka Panjang','bn.b3d':'Platform dirancang untuk partisipasi berbasis siklus yang berkelanjutan — bukan spekulasi jangka pendek.',
+        'bn.b4t':'Dapat Diakses dari Mana Saja','bn.b4d':'Aplikasi mobile NOVEX memberi investor akses penuh ke portofolio, dompet, dan distribusi mereka di perangkat apa pun.',
+        /* footer support */
+        'fsb.title':'Butuh Bantuan?','fsb.sub':'Tim dukungan kami siap membantu Anda di setiap langkah.',
+        'fsb.l1':'Dukungan WhatsApp','fsb.l2':'Dukungan Email','fsb.l3':'Pusat Bantuan','fsb.l4':'FAQ','fsb.l5':'Sen–Sab, 09.00–18.00 WIB',
+      }
+    };
+
+    /* ===== LANGUAGE SWITCHER ===== */
+    let currentLang = 'en';
+
+    function switchLang(lang, btn) {
+      currentLang = lang;
+      // Update active button state
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // Apply text translations
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+      });
+      // Apply HTML translations (for elements with gradient spans etc.)
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+      });
+      // Update html lang attribute
+      document.documentElement.lang = lang;
+      // Update page title
+      document.title = lang === 'id'
+        ? 'NOVEX — Generasi Baru Untuk Berinvestasi'
+        : 'NOVEX — New Generation For Investing';
+    }
+
+    /* ===== NAVBAR SCROLL ===== */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach(el => observer.observe(el));
+
+    /* ===== FAQ TOGGLE ===== */
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    /* ===== DASHBOARD TAB SWITCHER ===== */
+    function switchTab(btn, tab) {
+      document.querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      ['portfolio', 'ai-monitor', 'wallet', 'distributions'].forEach(id => {
+        const el = document.getElementById('tab-' + id);
+        if (el) el.style.display = (id === tab) ? 'block' : 'none';
+      });
+    }
+
+    /* ===== BAR ANIMATION STAGGER ===== */
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.dash-bar').forEach((bar, i) => {
+        bar.style.animationDelay = `${i * 0.07}s`;
+      });
+    });
+
+    /* ===== MOBILE NAV ===== */
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function openMobileNav() {
+      mobileDrawer.classList.add('open');
+      mobileOverlay.classList.add('open');
+      mobileToggle.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileNav() {
+      mobileDrawer.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+      mobileToggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    mobileToggle.addEventListener('click', () => {
+      mobileDrawer.classList.contains('open') ? closeMobileNav() : openMobileNav();
+    });
+    /* Close on Escape key */
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
+  </script>
+</body>
+</html>
